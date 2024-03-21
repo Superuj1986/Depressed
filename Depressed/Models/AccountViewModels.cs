@@ -1,0 +1,226 @@
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace Depressed.Models
+{
+    public class ExternalLoginConfirmationViewModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
+
+    public class ExternalLoginListViewModel
+    {
+        public string ReturnUrl { get; set; }
+    }
+
+    public class SendCodeViewModel
+    {
+        public string SelectedProvider { get; set; }
+        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+        public string ReturnUrl { get; set; }
+        public bool RememberMe { get; set; }
+    }
+
+    public class VerifyCodeViewModel
+    {
+        [Required]
+        public string Provider { get; set; }
+
+        [Required]
+        [Display(Name = "Code")]
+        public string Code { get; set; }
+        public string ReturnUrl { get; set; }
+
+        [Display(Name = "Remember this browser?")]
+        public bool RememberBrowser { get; set; }
+
+        public bool RememberMe { get; set; }
+    }
+
+    public class ForgotViewModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
+
+    public class LoginViewModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Display(Name = "Remember me")]
+        public bool RememberMe { get; set; }
+    }
+
+    public class RegisterViewModel
+    {
+        [Display(Name = "Username")]
+        [Required]
+        public string UserName { get; set; }
+        [Display(Name = "Email")]
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+        [Display(Name = "Role name")]
+        [Required]
+        public string RoleId { get; set; }
+    }
+    public class EditUserViewModel
+    {
+        public string UserId { get; set; }
+        [Display(Name = "Username")]
+        [Required]
+        public string UserName { get; set; }
+        [Display(Name = "Fullname")]
+        public string FullName { get; set; }
+        [Display(Name = "Age")]
+        public string Age { get; set; }
+        [Display(Name = "Main subject")]
+        public string Main_subject { get; set; }
+        [Display(Name = "Birth Date")]
+        public DateTime Birthdate { get; set; }
+        [Display(Name ="Address")]
+        public string address { get; set; }
+        [Display(Name = "Email")]
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Display(Name = "Your avatar")]
+        public byte[] Image { get; set; }
+        [Display(Name = "Phone number")]
+        [Phone]
+        public string Phone_number { get; set; }
+    }
+    public class ChangeEmail
+    {
+        public string UserId { get; set; }
+        [Display(Name = "Email")]
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+    }
+    public class ResetPasswordViewModel
+    {
+        public string Email { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        public string Code { get; set; }
+    }
+
+    public class ForgotPasswordViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
+    public class CustomPasswordValidator : IIdentityValidator<string>
+    {
+        public int MinLength { get; set; }
+        //While Creating CustomPasswordValidator Instance we need to pass the Minimum Length of the Password
+        public CustomPasswordValidator(int minLength)
+        {
+            MinLength = minLength;
+        }
+        // Validate Password: count how many types of characters exists in the password  
+        // Provide Implementation for the ValidateAsync method of IIdentityValidator Interface
+        public Task<IdentityResult> ValidateAsync(string password)
+        {
+            //First Check the Minimum Length Validator
+            if (string.IsNullOrEmpty(password) || password.Length < MinLength)
+            {
+                return Task.FromResult(IdentityResult.Failed($"Password Too Short, Minimum {MinLength} Character Required"));
+            }
+            int counter = 0;
+            //Create a List of String to store the different patterns to be checked in the password
+            List<string> patterns = new List<string>
+            {
+                @"[a-z]", // Lowercase  
+                @"[A-Z]", // Uppercase  
+                @"[0-9]", // Digits  
+                @"[!@#$%^&*\(\)_\+\-\={}<>,\.\|""'~`:;\\?\/\[\]]" // Special Symbols
+            };
+            // Count Type of Different Chars present in the Password  
+            foreach (string p in patterns)
+            {
+                if (Regex.IsMatch(password, p))
+                {
+                    counter++;
+                }
+            }
+            //If the counter is less than or equals to 3, means password doesnot contain all the required patterns
+            if (counter <= 3)
+            {
+                return Task.FromResult(IdentityResult.Failed("Please Use a Combination of Lowercase, Uppercase, Digits, Special Symbols Characters"));
+            }
+            return Task.FromResult(IdentityResult.Success);
+        }
+    }
+    public class RegisterRoleViewModel
+    {
+        [Display(Name = "Role name")]
+        [Required]
+        public string RoleName { get; set; }
+    }
+    public class EditRoleViewModel
+    {
+        [Required]
+        public string RoleId { get; set; }
+        [Display(Name = "Role name")]
+        [Required]
+        public string RoleName { get; set; }
+    }
+    public class DeleteRoleViewModel
+    {
+        [Required]
+        public string RoleId { get; set; }
+    }
+    public class UserList
+    {
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string RoleName { get; set; }
+    }
+}

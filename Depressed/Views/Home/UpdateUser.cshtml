@@ -1,0 +1,98 @@
+﻿@model Depressed.Models.EditUserViewModel
+@{
+    ViewBag.Title = "UpdateUser";
+    Layout = "~/Views/Shared/ProfileShare.cshtml";
+}
+<!-- Profile Details -->
+<div class="col-xl-9 col-md-8">
+    <div class="settings-widget profile-details">
+        <div class="settings-menu p-0">
+            <div class="profile-heading">
+                <h3>Profile Details</h3>
+                <p>You have full control to manage your own account setting.</p>
+            </div>
+            <div class="course-group mb-0 d-flex">
+                <div class="course-group-img d-flex align-items-center">
+                    <a href="student-profile.html"><img src="assets/img/user/user11.jpg" alt="" class=""></a>
+                    <div class="course-name">
+                        <h4><a href="#">Your avatar</a></h4>
+                        <p>PNG or JPG no bigger than 800px wide and tall.</p>
+                    </div>
+                    <div class="input-block">
+                        <input type="file" name="postedFile" />
+                    </div>
+                </div>
+            </div>
+            <div class="checkout-form personal-address add-course-info ">
+                <div class="personal-info-head">
+                    <h4>Personal Details</h4>
+                    <p>Edit your personal information and address.</p>
+                </div>
+                <hr />
+                @using (Html.BeginForm("UpdateUser", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.Hidden("UserId", @Model.UserId)
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "form-control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "form-control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "form-control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.Main_subject, htmlAttributes: new { @class = "form-control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Main_subject, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Main_subject, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.Birthdate, htmlAttributes: new { @class = "form-control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Birthdate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                @Html.ValidationMessageFor(model => model.Birthdate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "form-control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.Phone_number, htmlAttributes: new { @class = "form-control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Phone_number, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Phone_number, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Profile Details -->

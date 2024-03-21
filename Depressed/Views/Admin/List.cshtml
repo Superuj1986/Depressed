@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Depressed.Models.UserList>
+@{
+    ViewBag.Title = "Trang chủ Admin";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<h2>@ViewBag.Title</h2>
+<body>
+    <div>
+        <p>Danh sách người dùng đến thời điểm hiện tại</p>
+
+    </div>
+    <table class="table">
+        <tr>
+            <td>UserId</td>
+            <td>UserName</td>
+            <td>Email</td>
+            <td>FirstName</td>
+            <td>LastName</td>
+            <td>RoleName</td>
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.RoleName</td>
+                <td>
+                    @Html.ActionLink("Xóa", "DeleteUser", "Admin", routeValues:new { UserId = user.UserId}, htmlAttributes: new { title = "Delete" })
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Depressed.Models.RoleViewDto>
+@{
+    ViewBag.Title = "RoleList";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Vai tro</h2>
+<div class="form-group">
+    <div>
+        Không tìm thấy vai trò bạn cần? @Html.ActionLink("Thêm mới","AddRole", "Admin" ,htmlAttributes: new { @class = "control-label col-md-2" })
+    </div>
+    <table class="table">
+        <tr>
+            <th>Mã vai trò</th>
+            <th>Tên vai trò</th>
+        </tr>
+        @foreach (var roles in Model)
+        {
+            <tr>
+                <td>@roles.RoleId</td>
+                <td>@roles.Name</td>
+                <td>
+                    @Html.ActionLink("Sửa tên","UpdateRole","Admin",routeValues: new { RoleId = roles.RoleId }, htmlAttributes: new { title = "Update" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

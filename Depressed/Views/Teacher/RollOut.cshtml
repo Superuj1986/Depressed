@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "RollOut";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<body>
+    <!--Attendance Form Start-->
+    <div class="container mt-5">
+        <h2 class="mb-4">Attendance</h2>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <!-- <label for="classSelect">Class</label> -->
+                    <h4>Class</h4>
+                    <select id="classSelect" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>Class 1</option>
+                        <option>Class 2</option>
+                        <option>Class 3</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <!-- <label for="datePicker">Date</label> -->
+                    <h4>Date</h4>
+                    <div class="input-group date" id="datePicker" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#datePicker" />
+                        <div class="input-group-append" data-target="#datePicker" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>&nbsp;</label>
+                    <button type="button" class="btn btn-primary form-control">Find Schedule</button>
+                </div>
+            </div>
+        </form>
+        <div class="mt-2">
+            <h4>Lecture Content</h4>
+            <textarea class="form-control" rows="3" style="width: 780px;" id="lectureContent"></textarea>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h4>Student List</h4>
+            </div>
+            <div>
+                <button type="button" id="saveAttendanceBtn" class="btn btn-success">Save</button>
+            </div>
+        </div>
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Unexcused</th>
+                        <th>Excused</th>
+                        <th>Total Absences</th>
+                        <th>% Absent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>123-456-7890</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td>0</td>
+                        <td>0%</td>
+                    </tr>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>123-456-7890</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td>0</td>
+                        <td>0%</td>
+                    </tr>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>123-456-7890</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td>0</td>
+                        <td>0%</td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--Attendance Form End-->
+</body>
+

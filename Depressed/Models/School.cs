@@ -53,17 +53,26 @@ namespace Depressed.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int kh_id { get; set; }
-        public string name { get; set; }
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
-        [Required]
-        public string subject_name { get; set; }
+        public string name { get; set; }
+        [ForeignKey("Category")]
+        public int category_id {  get; set; }
+        public virtual Category Category { get; set; }
         [Required]
         public string Content { get; set; }
-        [Required]
-        public DateTime? Start { get; set; }
         public byte[] Image { get; set; }
+        public float Price { get; set; }
+    }
+    public class Category
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ca_id { get; set; }
+        [Required]
+        public string ca_name { get; set; }
+        public virtual ICollection<Khoahoc> Khoahocs { get; set; }
     }
     public class ClassMember
     {
@@ -71,7 +80,7 @@ namespace Depressed.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         [ForeignKey("Lophoc")]
-        public int class_id { get; set; }
+        public int lophoc_id { get; set; }
         public virtual Lophoc Lophoc { get; set; }
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
@@ -83,32 +92,27 @@ namespace Depressed.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int class_id { get; set; }
-        public string name { get; set; }
+        public string class_name { get; set; }
+        public string content { get; set; }
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual ICollection<Lichhoc> Lichhoc { get; set; }
-
     }
     public class Lichhoc
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-        [ForeignKey("ApplicationUser")]
-        public string UserId { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
         [ForeignKey("Lophoc")]
-        public int class_id { get; set; }
+        public int lophoc_id { get; set; }
         public  virtual Lophoc Lophoc { get; set; }
-        public DateTime? Day1_Start { get; set; }
-        public DateTime? Day1_End { get; set; }
-        public DateTime? Day2_Start { get; set; }
-        public DateTime? Day2_End { get; set; }
-        public DateTime? Day3_Start { get; set; }
-        public DateTime? Day3_End { get; set; }
-        public DateTime? Day4_Start { get; set; }
-        public DateTime? Day4_End { get; set; }
+        public DateTime? Ngayhoc1 {  get; set; }
+        public string Tiet_1 {  get; set; }
+        public DateTime? Ngayhoc2 { get; set; }
+        public string Tiet_2 { get; set; }
+        public DateTime? Ngayhoc3 { get; set; }
+        public string Tiet_3 { get; set; }
     }
     public class RollOut
     {
@@ -129,11 +133,10 @@ namespace Depressed.Models
         public string UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         [ForeignKey("Lophoc")]
-        public virtual int class_id { get; set; }
+        public virtual int lophoc_id { get; set; }
         public virtual Lophoc Lophoc { get; set; }
         public string Note { get; set; }
     }
-    //done
     public class Thongbao
     {
         [Key]

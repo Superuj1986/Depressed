@@ -28,12 +28,13 @@ namespace Depressed.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        
         public DbSet<Khoahoc> Khoahocs { get; set; }
         public DbSet<Lophoc> Lophocs { get; set; }
         public DbSet<RollOut> RollOuts { get; set; }
         public DbSet<Thongbao> Thongbaos { get; set; }
         public DbSet<ClassMember> ClassMembers { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Lichhoc> Lichhocs {  get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

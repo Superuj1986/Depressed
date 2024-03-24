@@ -1,0 +1,55 @@
+﻿@model List<Depressed.Models.ClassMember>
+@{
+    ViewBag.Title = "LophocChitiet";
+    Layout = "~/Views/Shared/Separated.cshtml";
+    var lophocViewModel = ViewBag.ViewModel as List<Depressed.Models>;
+}
+<body>
+    <div>
+        <p>Class Details</p>
+        <div>
+            <table>
+                @if ((bool)ViewBag.Check)
+                {
+                    <tr>
+                        <th>Date</th>
+                        <th>Period</th>
+                    </tr>
+                    foreach (var lichHoc in lophocViewModel)
+                    {
+                        <tr>
+                            <td>@lichHoc.Ngayhoc1.</td>
+                            <td>@lichHoc.Tiet_1</td>
+                        </tr>
+                        <tr>
+                            <td>@lichHoc.Ngayhoc2</td>
+                            <td>@lichHoc.Tiet_2</td>
+                        </tr>
+                        <tr>
+                            <td>@lichHoc.Ngayhoc3</td>
+                            <td>@lichHoc.Tiet_3</td>
+                        </tr>
+
+                    }
+                }
+                else
+                {
+                    @Html.ActionLink("Add Schedule", "Schedule", "Teacher", routeValues: new { id = ViewBag.lophoc_id }, htmlAttributes: new { title = "Add" });
+                }
+            </table>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <td>UserId</td>
+            <td>UserName</td>
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.ApplicationUser.UserName</td>
+            </tr>
+        }
+    </table>
+</body>

@@ -24,8 +24,6 @@
                 <td>@user.UserId</td>
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
-                <td>@user.FirstName</td>
-                <td>@user.LastName</td>
                 <td>@user.RoleName</td>
                 <td>
                     @Html.ActionLink("Xóa", "DeleteUser", "Admin", routeValues:new { UserId = user.UserId}, htmlAttributes: new { title = "Delete" })

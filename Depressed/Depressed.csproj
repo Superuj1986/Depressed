@@ -181,25 +181,25 @@
     <Compile Include="Migrations\202403091207143_InitialCreate.designer.cs">
       <DependentUpon>202403091207143_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202403160456357_ExtendIdentity.cs" />
-    <Compile Include="Migrations\202403160456357_ExtendIdentity.Designer.cs">
-      <DependentUpon>202403160456357_ExtendIdentity.cs</DependentUpon>
+    <Compile Include="Migrations\202403230533436_Phase1.1.cs" />
+    <Compile Include="Migrations\202403230533436_Phase1.1.Designer.cs">
+      <DependentUpon>202403230533436_Phase1.1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202403171442135_UpdateDB.cs" />
-    <Compile Include="Migrations\202403171442135_UpdateDB.Designer.cs">
-      <DependentUpon>202403171442135_UpdateDB.cs</DependentUpon>
+    <Compile Include="Migrations\202403230606337_Phase2.cs" />
+    <Compile Include="Migrations\202403230606337_Phase2.Designer.cs">
+      <DependentUpon>202403230606337_Phase2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202403180452240_Adjust.cs" />
-    <Compile Include="Migrations\202403180452240_Adjust.Designer.cs">
-      <DependentUpon>202403180452240_Adjust.cs</DependentUpon>
+    <Compile Include="Migrations\202403231408172_Lichhoc.cs" />
+    <Compile Include="Migrations\202403231408172_Lichhoc.Designer.cs">
+      <DependentUpon>202403231408172_Lichhoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202403180455461_Ihope.cs" />
-    <Compile Include="Migrations\202403180455461_Ihope.Designer.cs">
-      <DependentUpon>202403180455461_Ihope.cs</DependentUpon>
+    <Compile Include="Migrations\202403240441200_Addition.cs" />
+    <Compile Include="Migrations\202403240441200_Addition.Designer.cs">
+      <DependentUpon>202403240441200_Addition.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202403181347191_Fix.cs" />
-    <Compile Include="Migrations\202403181347191_Fix.Designer.cs">
-      <DependentUpon>202403181347191_Fix.cs</DependentUpon>
+    <Compile Include="Migrations\202403240605045_More.cs" />
+    <Compile Include="Migrations\202403240605045_More.Designer.cs">
+      <DependentUpon>202403240605045_More.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -899,10 +899,19 @@
     <Content Include="Views\Teacher\Add_Lophoc.cshtml" />
     <Content Include="Views\Teacher\Profile.cshtml" />
     <Content Include="Views\Teacher\Create_Profile.cshtml" />
-    <Content Include="Views\Home\UpdateUser.cshtml" />
-    <Content Include="Views\Home\Profile_View.cshtml" />
     <Content Include="Views\Shared\ProfileShare.cshtml" />
     <Content Include="Views\Home\Security.cshtml" />
+    <Content Include="Views\Home\UpdateUser.cshtml" />
+    <Content Include="Views\Shared\TeacherSideBar.cshtml" />
+    <Content Include="Views\Teacher\Khoahoc.cshtml" />
+    <Content Include="Views\Teacher\Tao_kh.cshtml" />
+    <Content Include="Views\Shared\Separated.cshtml" />
+    <Content Include="Views\Teacher\Lophoc.cshtml" />
+    <Content Include="Views\Teacher\Dashboard.cshtml" />
+    <Content Include="Views\Teacher\Category.cshtml" />
+    <Content Include="Views\Teacher\NewCategory.cshtml" />
+    <Content Include="Views\Teacher\Schedule.cshtml" />
+    <Content Include="Views\Teacher\LophocChitiet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -939,20 +948,20 @@
     <EmbeddedResource Include="Migrations\202403091207143_InitialCreate.resx">
       <DependentUpon>202403091207143_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403160456357_ExtendIdentity.resx">
-      <DependentUpon>202403160456357_ExtendIdentity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202403230533436_Phase1.1.resx">
+      <DependentUpon>202403230533436_Phase1.1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403171442135_UpdateDB.resx">
-      <DependentUpon>202403171442135_UpdateDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202403230606337_Phase2.resx">
+      <DependentUpon>202403230606337_Phase2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403180452240_Adjust.resx">
-      <DependentUpon>202403180452240_Adjust.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202403231408172_Lichhoc.resx">
+      <DependentUpon>202403231408172_Lichhoc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403180455461_Ihope.resx">
-      <DependentUpon>202403180455461_Ihope.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202403240441200_Addition.resx">
+      <DependentUpon>202403240441200_Addition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403181347191_Fix.resx">
-      <DependentUpon>202403181347191_Fix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202403240605045_More.resx">
+      <DependentUpon>202403240605045_More.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

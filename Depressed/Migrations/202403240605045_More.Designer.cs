@@ -7,13 +7,13 @@ namespace Depressed.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Adjust : IMigrationMetadata
+    public sealed partial class More : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Adjust));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(More));
         
         string IMigrationMetadata.Id
         {
-            get { return "202403180452240_Adjust"; }
+            get { return "202403240605045_More"; }
         }
         
         string IMigrationMetadata.Source

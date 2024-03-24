@@ -28,7 +28,7 @@ namespace Depressed.Controllers
         }
         // GET: Admin
         [HttpGet]
-        public ActionResult List(UserList model)
+        public ActionResult List()
         {
             ApplicationRoleManager RoleManager = HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();

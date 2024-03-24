@@ -45,11 +45,6 @@ namespace Depressed.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult Profile_View()
-        {
-            return View();
-        }
         [AllowAnonymous]
         [HttpGet]
         public ActionResult AddUser()
@@ -110,6 +105,7 @@ namespace Depressed.Controllers
                 model.UserName = UserToEdit.UserName;
                 model.FullName = UserToEdit.Fullname;
                 model.Age = UserToEdit.Age;
+                model.Birthdate = UserToEdit.BirtDate;
                 model.Main_subject = UserToEdit.Main_subject;
                 model.address = UserToEdit.Address;
                 model.Phone_number = UserToEdit.PhoneNumber;
@@ -117,9 +113,9 @@ namespace Depressed.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult UpdateUser(EditUserViewModel model, HttpPostedFileBase postedFile)
+        public ActionResult UpdateUser(EditUserViewModel model/*, HttpPostedFileBase postedFile*/)
         {
-            if ( postedFile != null)
+            /*if ( postedFile != null)
             {
                 string path = Server.MapPath("~/Uploads/");
                 if (!Directory.Exists(path))
@@ -127,7 +123,7 @@ namespace Depressed.Controllers
                     Directory.CreateDirectory(path);
                 }
                 postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
-            }
+            }*/
             if (ModelState.IsValid)
             {
                 ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -164,6 +160,7 @@ namespace Depressed.Controllers
             ApplicationUser UserToEdit = UserManager.FindById(UserId);
             if ( UserToEdit != null )
             {
+                model.UserId = UserToEdit.Id;
                 model.Email = UserToEdit.Email;
                 ViewBag.Email = UserToEdit.Email;
             }

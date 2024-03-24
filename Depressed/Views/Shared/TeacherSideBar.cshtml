@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from dreamslms.dreamstechnologies.com/html/index-four.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jan 2024 16:51:02 GMT -->
+<!-- Mirrored from dreamslms.dreamstechnologies.com/html/setting-edit-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jan 2024 16:52:25 GMT -->
 <head>
 
     <meta charset="utf-8">
@@ -18,37 +18,26 @@
     <link rel="stylesheet" href="~/Scripts/assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="~/Scripts/assets/plugins/fontawesome/css/all.min.css">
 
-    <!-- Owl Carousel CSS -->
-    <link rel="stylesheet" href="~/Scripts/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/Scripts/assets/css/owl.theme.default.min.css">
-
-    <!-- Slick CSS -->
-    <link rel="stylesheet" href="~/Scripts/assets/plugins/slick/slick.css">
-    <link rel="stylesheet" href="~/Scripts/assets/plugins/slick/slick-theme.css">
+    <!-- Feather CSS -->
+    <link rel="stylesheet" href="~/Scripts/assets/css/feather.css">
 
     <!-- Select2 CSS -->
     <link rel="stylesheet" href="~/Scripts/assets/plugins/select2/css/select2.min.css">
-
-    <!-- Aos CSS -->
-    <link rel="stylesheet" href="~/Scripts/assets/plugins/aos/aos.css">
-
-    <!-- Feathericon CSS -->
-    <link rel="stylesheet" href="~/Scripts/assets/css/feather.css">
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="~/Scripts/assets/css/style.css">
 
 </head>
-<body class="home-five">
+<body>
 
     <!-- Main Wrapper -->
     <div class="main-wrapper">
 
         <!-- Header -->
-        <header class="header">
+        <header class="header header-page">
             <div class="header-fixed">
                 <nav class="navbar navbar-expand-lg header-nav scroll-sticky">
-                    <div class="container">
+                    <div class="container ">
                         <div class="navbar-header">
                             <a id="mobile_btn" href="javascript:void(0);">
                                 <span class="bar-icon">
@@ -77,14 +66,14 @@
                                         @Html.ActionLink("Home", "Index", "Home")
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Instructor <i class="fas fa-chevron-down"></i></a>
+                                        <a href="#">Teacher <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
                                             <li><a href="instructor-dashboard.html">Dashboard</a></li>
                                             <li class="has-submenu">
                                                 <a href="instructor-list.html">Your classes</a>
                                                 <ul class="submenu">
-                                                    <li><a href="instructor-list.html">All classes</a></li>
-                                                    <li><a href="instructor-grid.html">Class</a></li>
+                                                    <li><a href="instructor-list.html">List</a></li>
+                                                    <li><a href="instructor-grid.html">Grid</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="instructor-course.html">My Course</a></li>
@@ -120,17 +109,12 @@
                                     <li class="has-submenu">
                                         <a href="#">Your classes<i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">All classes</a></li>
-                                            <li class="has-submenu">
-                                                <a href="instructor-dashboard.html">Class</a>
-                                                <ul class="submenu">
-                                                    <li><a href="students-list.html">IELTS</a></li>
-                                                </ul>
-                                            </li>
+                                            <li><a href="instructor-dashboard.html">Dashboard</a></li>
+
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Your Courses<i class="fas fa-chevron-down"></i></a>
+                                        <a href="#">Courses <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu first-submenu">
                                             <li class="has-submenu ">
                                                 <a href="students-list.html">Attended Courses</a>
@@ -139,10 +123,15 @@
                                                     <li><a href="students-grid.html">Grid</a></li>
                                                 </ul>
                                             </li>
+                                            <li><a href="setting-edit-profile.html">Browse more</a></li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Your check-in</a>
+                                        <a href="#">Your check-in <i class="fas fa-chevron-down"></i></a>
+                                        <ul class="submenu">
+                                            <li><a href="notifications.html">Notification</a></li>
+                                            <li><a href="pricing-plan.html">Pricing Plan</a></li>
+                                        </ul>
                                     </li>
                                 </ul>
                             }
@@ -155,8 +144,8 @@
                                     <li class="has-submenu">
                                         <a href="#">List <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li>@Html.ActionLink("Users", "List", "Admin")</li>
-                                            <li>@Html.ActionLink("Users", "RoleList", "Admin")</li>
+                                            <li><a href="instructor-dashboard.html">Users</a></li>
+                                            <li><a href="instructor-course.html">Roles</a></li>
                                             <li class="has-submenu">
                                                 <a href="instructor-list.html">Teachers</a>
                                                 <ul class="submenu">
@@ -171,10 +160,12 @@
                             else
                             {
                                 <ul class="main-nav">
-                                    <li class="has-submenu active">
-                                        @Html.ActionLink("Home", "Index", "Home")
-                                    </li>
                                     <li class="has-submenu">
+                                        <ul class="submenu">
+                                            @Html.ActionLink("Home", "Index", "Home")
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu active">
                                         <a href="#">Current Courses </a>
                                     </li>
                                     <li class="has-submenu">
@@ -323,16 +314,8 @@
                                                 }
                                             </div>
                                         </div>
-                                        @if (User.IsInRole("Student"))
-                                        {
-                                            <p class="dropdown-item"><i class="feather-home me-1"></i>@Html.ActionLink("Dashboard", "Index", "Home")</p>
-                                            <p class="dropdown-item"><i class="feather-star me-1"></i>@Html.ActionLink("Edit Profile", "UpdateUser", "Home", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Update" })</p>
-                                        }
-                                        else if (User.IsInRole("Teacher"))
-                                        {
-                                            <p class="dropdown-item"><i class="feather-home me-1"></i>@Html.ActionLink("Dashboard", "Dashboard", "Teacher")</p>
-                                            <p class="dropdown-item"><i class="feather-star me-1"></i>@Html.ActionLink("Edit Profile", "Profile", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Update" })</p>
-                                        }
+                                        <p class="dropdown-item"><i class="feather-home me-1"></i>@Html.ActionLink("Dashboard", "Index", "Home")</p>
+                                        <p class="dropdown-item"><i class="feather-star me-1"></i>@Html.ActionLink("Edit Profile", "Profile", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Update" })</p>
                                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                                         {
                                             @Html.AntiForgeryToken()
@@ -344,13 +327,12 @@
                         }
                         else
                         {
-                            <ul class="nav header-navbar-rht">
+                            <ul class="nav header-navbar-rht header-navbar-five">
                                 <li class="nav-item">
                                     <a class="nav-link header-sign" href="~/Account/Login">Sign in</a>
                                 </li>
                                 <li class="nav-item">
                                     @Html.ActionLink("Sign up", "AddUser", "Home", new { @class = "nav-link header-login" })
-                                </li>
                             </ul>
                         }
                     </div>
@@ -358,44 +340,154 @@
             </div>
         </header>
         <!-- /Header -->
-        @RenderBody()
-        <!-- Footer -->
-        <footer class="footer footer-five">
-            <!-- Footer Top -->
-            <div class="footer-top-five">
-                <div class="container">
-
-                    <div class="footer-five-left">
-                        <img src="~/Scripts/assets/img/bg/footer-left.svg" alt="">
+        <div class="page-content">
+            <div class="container">
+                <div class="row">
+                    <!-- Sidebar -->
+                    <div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
+                        <div class="settings-widget dash-profile">
+                            <div class="settings-menu p-0">
+                                <div class="profile-bg">
+                                    <img src="~/Scripts/assets/img/instructor-profile-bg.jpg" alt="">
+                                    <div class="profile-img">
+                                        <a href="instructor-profile.html"><img src="~/Scripts/assets/img/user/user15.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="profile-group">
+                                    <div class="profile-name text-center">
+                                        <h4><a href="instructor-profile.html">@User.Identity.GetUserName()</a></h4>
+                                        @if (User.IsInRole("Teacher"))
+                                        {
+                                            <p class="text-muted mb-0">Teacher</p>
+                                        }
+                                        else if (User.IsInRole("Student"))
+                                        {
+                                            <p class="text-muted mb-0">Student</p>
+                                        }
+                                        else if (User.IsInRole("Admin"))
+                                        {
+                                            <p class="text-muted mb-0">Admin</p>
+                                        }
+                                    </div>
+                                    <div class="go-dashboard text-center">
+                                        <p class="btn btn-primary">
+                                            @Html.ActionLink("Create new Course", "Tao_kh", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Course" })
+                                        </p>
+                                    </div>
+                                    <div class="go-dashboard text-center">
+                                        <p class="btn btn-primary">
+                                            @Html.ActionLink("Create new Class", "Add_Lophoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Class" })
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-widget account-settings">
+                            <div class="settings-menu">
+                                <h3>DASHBOARD</h3>
+                                <ul>
+                                    <li class="nav-item active">
+                                        <a href="instructor-dashboard.html" class="nav-link">
+                                            <i class="feather-home"></i> My Dashboard
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <i class="feather-book"></i>@Html.ActionLink("My Courses","Khoahoc","Teacher",routeValues:new { UserId = User.Identity.GetUserId()},htmlAttributes:new { title = "Course"})
+                                    </li>
+                                    <li class="nav-item">
+                                        <i class="feather-book"></i>@Html.ActionLink("My Classes", "Lophoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Class" })
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-reviews.html" class="nav-link">
+                                            <i class="feather-star"></i> Reviews
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-student-grid.html" class="nav-link">
+                                            <i class="feather-users"></i> Students
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-tickets.html" class="nav-link">
+                                            <i class="feather-server"></i> Support Tickets
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="instructor-title">
+                                    <h3>ACCOUNT SETTINGS</h3>
+                                </div>
+                                <ul>
+                                    <li class="nav-item">
+                                        <a href="instructor-edit-profile.html" class="nav-link ">
+                                            <i class="feather-settings"></i> Edit Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-security.html" class="nav-link">
+                                            <i class="feather-user"></i> Security
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-social-profiles.html" class="nav-link">
+                                            <i class="feather-refresh-cw"></i> Social Profiles
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-notification.html" class="nav-link">
+                                            <i class="feather-bell"></i> Notifications
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-profile-privacy.html" class="nav-link">
+                                            <i class="feather-lock"></i> Profile Privacy
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-delete-profile.html" class="nav-link">
+                                            <i class="feather-trash-2"></i> Delete Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-linked-account.html" class="nav-link">
+                                            <i class="feather-user"></i> Linked Accounts
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+                    <!-- /Sidebar -->
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="footer">
 
+            <!-- Footer Top -->
+            <div class="footer-top">
+                <div class="container">
                     <div class="row">
-
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <div class="col-lg-4 col-md-6">
 
                             <!-- Footer Widget -->
-                            <div class="footer-contact footer-menu-five">
-                                <h2 class="footer-title footer-title-five">Get in touch</h2>
-                                <div class="footer-contact-info">
-                                    <div class="footer-address">
-                                        <span><i class="feather-map-pin"></i></span>
-                                        <p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
-                                    </div>
-                                    <p class="mb-0">
-                                        <span class="phone-icon"><i class="fa-solid fa-phone-volume"></i></span>
-                                        +19 123-456-7890
-                                    </p>
+                            <div class="footer-widget footer-about">
+                                <div class="footer-logo">
+                                    <img src="~/Scripts/assets/img/logo.svg" alt="logo">
+                                </div>
+                                <div class="footer-about-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris</p>
                                 </div>
                             </div>
                             <!-- /Footer Widget -->
 
                         </div>
 
-                        <div class="col-lg-2 col-md-3 col-sm-12">
+                        <div class="col-lg-2 col-md-6">
 
                             <!-- Footer Widget -->
-                            <div class="footer-menu footer-menu-five">
-                                <h2 class="footer-title footer-title-five"><i class="fa-sharp fa-solid fa-dash"></i>For Instructor</h2>
+                            <div class="footer-widget footer-menu">
+                                <h2 class="footer-title">For Instructor</h2>
                                 <ul>
                                     <li><a href="instructor-profile.html">Profile</a></li>
                                     <li><a href="login.html">Login</a></li>
@@ -408,11 +500,11 @@
 
                         </div>
 
-                        <div class="col-lg-2 col-md-3 col-sm-12">
+                        <div class="col-lg-2 col-md-6">
 
                             <!-- Footer Widget -->
-                            <div class="footer-menu footer-menu-five">
-                                <h2 class="footer-title footer-title-five">For Student</h2>
+                            <div class="footer-widget footer-menu">
+                                <h2 class="footer-title">For Student</h2>
                                 <ul>
                                     <li><a href="student-profile.html">Profile</a></li>
                                     <li><a href="login.html">Login</a></li>
@@ -425,20 +517,29 @@
 
                         </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                            <h2 class="footer-title footer-title-five">Get More Updates</h2>
+                        <div class="col-lg-4 col-md-6">
+
                             <!-- Footer Widget -->
-                            <div class="footer-widget-five">
-                                <div class="footer-news-five">
+                            <div class="footer-widget footer-contact">
+                                <h2 class="footer-title">News letter</h2>
+                                <div class="news-letter">
                                     <form>
-                                        <div class="input-block mb-0">
-                                            <input type="text" class="form-control" placeholder="Enter Your Email Address">
-                                            <button type="submit" class="btn btn-one">Subscribe</button>
-                                        </div>
+                                        <input type="text" class="form-control" placeholder="Enter your email address" name="email">
                                     </form>
                                 </div>
-                                <div class="footer-about-five">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris</p>
+                                <div class="footer-contact-info">
+                                    <div class="footer-address">
+                                        <img src="~/Scripts/assets/img/icon/icon-20.svg" alt="" class="img-fluid">
+                                        <p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
+                                    </div>
+                                    <p>
+                                        <img src="~/Scripts/assets/img/icon/icon-19.svg" alt="" class="img-fluid">
+                                        <a href="https://dreamslms.dreamstechnologies.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7511071014180619180635100d14180519105b161a18">[email&#160;protected]</a>
+                                    </p>
+                                    <p class="mb-0">
+                                        <img src="~/Scripts/assets/img/icon/icon-21.svg" alt="" class="img-fluid">
+                                        +19 123-456-7890
+                                    </p>
                                 </div>
                             </div>
                             <!-- /Footer Widget -->
@@ -446,58 +547,27 @@
                         </div>
 
                     </div>
-
-                    <div class="footer-five-right">
-                        <img src="~/Scripts/assets/img/bg/footer-right.svg" alt="">
-                    </div>
-
                 </div>
             </div>
             <!-- /Footer Top -->
             <!-- Footer Bottom -->
-            <div class="footer-bottom footer-bottom-five">
+            <div class="footer-bottom">
                 <div class="container">
 
                     <!-- Copyright -->
-                    <div class="copyright-five">
-                        <div class="row align-items-center">
-                            <div class="col-md-4">
-                                <div class="footer-logo-five">
-                                    <a href="index.html">
-                                        <img src="~/Scripts/assets/img/logo/logo-five.svg" class="img-fluid" alt="Footer Logo">
-                                    </a>
-
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="copyright-text">
-                                    <p>&copy; 2023 DreamsLMS. All rights reserved.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="social-icon-five">
-                                    <ul class="nav">
-                                        <li>
-                                            <a href="#" target="_blank" class="twitter-icon">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" target="_blank" class="linked-icon">
-                                                <i class="fab fa-linkedin-in"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" target="_blank" class="facebook-icon">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" target="_blank" class="youtube-icon">
-                                                <i class="fab fa-youtube"></i>
-                                            </a>
-                                        </li>
+                    <div class="copyright">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="privacy-policy">
+                                    <ul>
+                                        <li><a href="term-condition.html">Terms</a></li>
+                                        <li><a href="privacy-policy.html">Privacy</a></li>
                                     </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="copyright-text">
+                                    <p class="mb-0">&copy; 2023 DreamsLMS. All rights reserved.</p>
                                 </div>
                             </div>
                         </div>
@@ -512,33 +582,28 @@
         <!-- /Footer -->
 
     </div>
-    <!-- Main Wrapper -->
+    <!-- /Main Wrapper -->
     <!-- jQuery -->
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="~/Scripts/assets/js/jquery-3.7.1.min.js"></script>
 
     <!-- Bootstrap Core JS -->
     <script src="~/Scripts/assets/js/bootstrap.bundle.min.js"></script>
 
-    <!-- counterup JS -->
-    <script src="~/Scripts/assets/js/jquery.waypoints.js"></script>
-    <script src="~/Scripts/assets/js/jquery.counterup.min.js"></script>
-
     <!-- Select2 JS -->
     <script src="~/Scripts/assets/plugins/select2/js/select2.min.js"></script>
 
-    <!-- Owl Carousel -->
-    <script src="~/Scripts/assets/js/owl.carousel.min.js"></script>
+    <!-- Feature JS -->
+    <script src="~/Scripts/assets/plugins/feather/feather.min.js"></script>
 
-    <!-- Slick Slider -->
-    <script src="~/Scripts/assets/plugins/slick/slick.js"></script>
-
-    <!-- Aos -->
-    <script src="~/Scripts/assets/plugins/aos/aos.js"></script>
+    <!-- Sticky Sidebar JS -->
+    <script src="~/Scripts/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+    <script src="~/Scripts/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
     <!-- Custom JS -->
     <script src="~/Scripts/assets/js/script.js"></script>
 
 </body>
 
-<!-- Mirrored from dreamslms.dreamstechnologies.com/html/index-four.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jan 2024 16:51:43 GMT -->
+<!-- Mirrored from dreamslms.dreamstechnologies.com/html/setting-edit-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jan 2024 16:52:26 GMT -->
 </html>

@@ -400,6 +400,7 @@ namespace Depressed.Controllers
         {
             IAuthenticationManager AuthenticationManager = HttpContext.GetOwinContext().Authentication;
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.Clear();
             return RedirectToAction("Index", "Home");
         }
         //

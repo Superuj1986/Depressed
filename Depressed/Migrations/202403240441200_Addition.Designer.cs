@@ -7,13 +7,13 @@ namespace Depressed.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Ihope : IMigrationMetadata
+    public sealed partial class Addition : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Ihope));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Addition));
         
         string IMigrationMetadata.Id
         {
-            get { return "202403180455461_Ihope"; }
+            get { return "202403240441200_Addition"; }
         }
         
         string IMigrationMetadata.Source

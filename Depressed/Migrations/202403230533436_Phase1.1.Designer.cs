@@ -7,13 +7,13 @@ namespace Depressed.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Fix : IMigrationMetadata
+    public sealed partial class Phase11 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Fix));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Phase11));
         
         string IMigrationMetadata.Id
         {
-            get { return "202403181347191_Fix"; }
+            get { return "202403230533436_Phase1.1"; }
         }
         
         string IMigrationMetadata.Source

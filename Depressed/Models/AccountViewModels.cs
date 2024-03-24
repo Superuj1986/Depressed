@@ -103,24 +103,16 @@ namespace Depressed.Models
         [Display(Name = "Main subject")]
         public string Main_subject { get; set; }
         [Display(Name = "Birth Date")]
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
         [Display(Name ="Address")]
         public string address { get; set; }
-        [Display(Name = "Email")]
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-        [Display(Name = "Your avatar")]
-        public byte[] Image { get; set; }
         [Display(Name = "Phone number")]
-        [Phone]
         public string Phone_number { get; set; }
     }
     public class ChangeEmail
     {
         public string UserId { get; set; }
         [Display(Name = "Email")]
-        [Required]
         [EmailAddress]
         public string Email { get; set; }
     }
@@ -219,8 +211,6 @@ namespace Depressed.Models
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string RoleName { get; set; }
     }
 }

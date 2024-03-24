@@ -7,18 +7,18 @@ namespace Depressed.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class ExtendIdentity : IMigrationMetadata
+    public sealed partial class Phase2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ExtendIdentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Phase2));
         
         string IMigrationMetadata.Id
         {
-            get { return "202403160456357_ExtendIdentity"; }
+            get { return "202403230606337_Phase2"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

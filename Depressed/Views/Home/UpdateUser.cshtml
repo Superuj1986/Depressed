@@ -1,7 +1,14 @@
 ﻿@model Depressed.Models.EditUserViewModel
 @{
     ViewBag.Title = "UpdateUser";
-    Layout = "~/Views/Shared/ProfileShare.cshtml";
+    if (User.IsInRole("Student"))
+    {
+        Layout = "~/Views/Shared/ProfileShare.cshtml";
+    }
+    else if (User.IsInRole("Teacher"))
+    {
+        Layout = "~/Views/Shared/TeacherSideBar.cshtml";
+    }
 }
 <!-- Profile Details -->
 <div class="col-xl-9 col-md-8">

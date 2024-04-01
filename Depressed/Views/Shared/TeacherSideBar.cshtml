@@ -52,7 +52,7 @@
                         </div>
                         <div class="main-menu-wrapper">
                             <div class="menu-header">
-                                <a href="index.html" class="menu-logo">
+                                <a href="" class="menu-logo">
                                     <img src="~/Scripts/assets/img/logo.svg" class="img-fluid" alt="Logo">
                                 </a>
                                 <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -66,26 +66,23 @@
                                         @Html.ActionLink("Home", "Index", "Home")
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Teacher <i class="fas fa-chevron-down"></i></a>
+                                        <a href="#">Instructor <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">Dashboard</a></li>
+                                            <li>@Html.ActionLink("Dashboard", "Dashboard", "Teacher")</li>
+                                            <li></li>
                                             <li class="has-submenu">
-                                                <a href="instructor-list.html">Your classes</a>
+                                                <a href="#">My classes</a>
                                                 <ul class="submenu">
-                                                    <li><a href="instructor-list.html">List</a></li>
-                                                    <li><a href="instructor-grid.html">Grid</a></li>
+                                                    <li>@Html.ActionLink("All Classes", "Lophoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Class" })</li>
                                                 </ul>
                                             </li>
-                                            <li><a href="instructor-course.html">My Course</a></li>
-                                            <li><a href="instructor-reviews.html">Reviews</a></li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
                                         <a href="#">Setting up <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu first-submenu">
-                                            <li><a href="setting-student-subscription.html">Your courses</a></li>
-                                            <li><a href="setting-student-billing.html">Class schdules</a></li>
-                                            <li><a href="setting-student-payment.html">Information</a></li>
+                                            <li>@Html.ActionLink("My Courses", "Khoahoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Course" })</li>
+
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
@@ -109,29 +106,25 @@
                                     <li class="has-submenu">
                                         <a href="#">Your classes<i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">Dashboard</a></li>
-
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Courses <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu first-submenu">
-                                            <li class="has-submenu ">
-                                                <a href="students-list.html">Attended Courses</a>
+                                            <li><a href="instructor-dashboard.html">All classes</a></li>
+                                            <li class="has-submenu">
+                                                <a href="instructor-dashboard.html">Class</a>
                                                 <ul class="submenu">
-                                                    <li><a href="students-list.html">List</a></li>
-                                                    <li><a href="students-grid.html">Grid</a></li>
+                                                    <li><a href="students-list.html">IELTS</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="setting-edit-profile.html">Browse more</a></li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Your check-in <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="notifications.html">Notification</a></li>
-                                            <li><a href="pricing-plan.html">Pricing Plan</a></li>
+                                        <a href="#">Your Courses<i class="fas fa-chevron-down"></i></a>
+                                        <ul class="submenu first-submenu">
+                                            <li class="has-submenu ">
+                                                <a href="#">Attended Courses</a>
+                                            </li>
                                         </ul>
+                                    </li>
+                                    <li class="has-submenu">
+                                        <a href="#">Your check-in</a>
                                     </li>
                                 </ul>
                             }
@@ -144,8 +137,8 @@
                                     <li class="has-submenu">
                                         <a href="#">List <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">Users</a></li>
-                                            <li><a href="instructor-course.html">Roles</a></li>
+                                            <li>@Html.ActionLink("Users", "List", "Admin")</li>
+                                            <li>@Html.ActionLink("Users", "RoleList", "Admin")</li>
                                             <li class="has-submenu">
                                                 <a href="instructor-list.html">Teachers</a>
                                                 <ul class="submenu">
@@ -160,12 +153,10 @@
                             else
                             {
                                 <ul class="main-nav">
-                                    <li class="has-submenu">
-                                        <ul class="submenu">
-                                            @Html.ActionLink("Home", "Index", "Home")
-                                        </ul>
-                                    </li>
                                     <li class="has-submenu active">
+                                        @Html.ActionLink("Home", "Index", "Home")
+                                    </li>
+                                    <li class="has-submenu">
                                         <a href="#">Current Courses </a>
                                     </li>
                                     <li class="has-submenu">
@@ -314,8 +305,8 @@
                                                 }
                                             </div>
                                         </div>
-                                        <p class="dropdown-item"><i class="feather-home me-1"></i>@Html.ActionLink("Dashboard", "Index", "Home")</p>
-                                        <p class="dropdown-item"><i class="feather-star me-1"></i>@Html.ActionLink("Edit Profile", "Profile", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Update" })</p>
+                                        <p class="dropdown-item"><i class="feather-home me-1"></i>@Html.ActionLink("Dashboard", "Dashboard", "Teacher")</p>
+                                        <p class="dropdown-item"><i class="feather-star me-1"></i>@Html.ActionLink("Edit Profile", "UpdateUser", "Home", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Update" })</p>
                                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                                         {
                                             @Html.AntiForgeryToken()
@@ -387,9 +378,7 @@
                                 <h3>DASHBOARD</h3>
                                 <ul>
                                     <li class="nav-item active">
-                                        <a href="instructor-dashboard.html" class="nav-link">
-                                            <i class="feather-home"></i> My Dashboard
-                                        </a>
+                                        <i class="feather-home"></i>@Html.ActionLink("Dashboard","Dashboard","Teacher")
                                     </li>
                                     <li class="nav-item">
                                         <i class="feather-book"></i>@Html.ActionLink("My Courses","Khoahoc","Teacher",routeValues:new { UserId = User.Identity.GetUserId()},htmlAttributes:new { title = "Course"})
@@ -403,12 +392,12 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="instructor-student-grid.html" class="nav-link">
+                                        <a href="#" class="nav-link">
                                             <i class="feather-users"></i> Students
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="instructor-tickets.html" class="nav-link">
+                                        <a href="#" class="nav-link">
                                             <i class="feather-server"></i> Support Tickets
                                         </a>
                                     </li>
@@ -418,13 +407,16 @@
                                 </div>
                                 <ul>
                                     <li class="nav-item">
-                                        <a href="instructor-edit-profile.html" class="nav-link ">
-                                            <i class="feather-settings"></i> Edit Profile
+                                        <i class="feather-settings"></i>@Html.ActionLink("Edit Profile", "UpdateUser", "Home", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Update" })
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="instructor-security.html" class="nav-link">
+                                            <i class="feather-user"></i> Change password
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="instructor-security.html" class="nav-link">
-                                            <i class="feather-user"></i> Security
+                                            <i class="feather-user"></i> Change email
                                         </a>
                                     </li>
                                     <li class="nav-item">

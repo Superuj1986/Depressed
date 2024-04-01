@@ -41,6 +41,10 @@ namespace Depressed.Controllers
                              UserId = user.Id,
                              UserName = user.UserName,
                              Email = user.Email,
+                             Fullname = user.Fullname,
+                             Phonenumber = user.PhoneNumber,
+                             Age = user.Age,
+                             Address = user.Address,
                              RoleName = role.Name
                          }).ToList();
             return View(users);
@@ -134,7 +138,7 @@ namespace Depressed.Controllers
                 IdentityResult result = UserManager.Delete(UserToDelete);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("List", "Admin");
                 }
                 foreach (string error in result.Errors)
                     ModelState.AddModelError("", error);

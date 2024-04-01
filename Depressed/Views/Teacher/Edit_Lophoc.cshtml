@@ -1,0 +1,67 @@
+﻿@model Depressed.Models.Lophoc
+@{
+    ViewBag.Title = "Edit_Lophoc";
+    Layout = "~/Views/Shared/Separated.cshtml";
+}
+<section class="page-content course-sec">
+    <div class="container">
+        @using (Html.BeginForm("Edit_Lophoc", "Teacher", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("class_id", @Model.class_id)
+            <div class="">
+                <h3>Class Information</h3>
+                <div>
+                    @Html.LabelFor(m => m.class_name, new { @class = "form-control-label" })
+                    @Html.EditorFor(m => m.class_name, new { @class = "form-control" })
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.content, new { @class = "form-control-label" })
+                    @Html.EditorFor(m => m.content, new { @class = "form-control" })
+                </div>
+            </div>
+            <div>
+                <h3>Class Schedule</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ngày học 1</th>
+                            <th>Tiết 1</th>
+                            <th>Ngày học 2</th>
+                            <th>Tiết 2</th>
+                            <th>Ngày học 3</th>
+                            <th>Tiết 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var lichhoc in Model.Lichhocs)
+                        {
+                            @Html.Hidden("id",lichhoc.id)
+                            <tr>
+                                <td>@Html.EditorFor(m => lichhoc.Ngayhoc1, new { htmlAttributes = new { @class = "form-control",type = "date" } })</td>
+                                <td>@Html.EditorFor(m => lichhoc.Tiet_1, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                <td>@Html.EditorFor(m => lichhoc.Ngayhoc2, new { htmlAttributes = new { @class = "form-control",type = "date" } })</td>
+                                <td>@Html.EditorFor(m => lichhoc.Tiet_2, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                <td>@Html.EditorFor(m => lichhoc.Ngayhoc3, new { htmlAttributes = new { @class = "form-control",type = "date" } })</td>
+                                <td>@Html.EditorFor(m => lichhoc.Tiet_3, new { htmlAttributes = new { @class = "form-control" } })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <h3>Members List</h3>
+                <select name="DeleteMemberIds" class="form-control">
+                    @foreach (var member in Model.ClassMembers)
+                    {
+                        <option value="@member.UserId">@member.ApplicationUser.UserName</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="Update" />
+            </div>
+        }
+    </div>
+</section>
+

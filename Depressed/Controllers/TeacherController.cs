@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
+using Depressed.Migrations;
+using Lichhoc = Depressed.Models.Lichhoc;
+using System.Data.Entity.Infrastructure;
 
 namespace Depressed.Controllers
 {
@@ -32,59 +35,10 @@ namespace Depressed.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult Profile(string UserId)
-        {
-            EditUserViewModel model = new EditUserViewModel();
-            ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            ApplicationUser UserToEdit = UserManager.FindById(UserId);
-            if (UserToEdit != null)
-            {
-                model.UserId = UserToEdit.Id;
-                model.UserName = UserToEdit.UserName;
-                model.FullName = UserToEdit.Fullname;
-                model.Age = UserToEdit.Age;
-                model.Birthdate = UserToEdit.BirtDate;
-                model.Main_subject = UserToEdit.Main_subject;
-                model.address = UserToEdit.Address;
-                model.Phone_number = UserToEdit.PhoneNumber;
-            }
-            return View(model);
-        }
-        public ActionResult Profile(EditUserViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                ApplicationUser UserToEdit = UserManager.FindById(model.UserId);
-                if (UserToEdit.UserName != model.UserName)
-                    UserToEdit.UserName = model.UserName;
-                if (UserToEdit.Fullname != model.FullName)
-                    UserToEdit.Fullname = model.FullName;
-                if (UserToEdit.Age != model.Age)
-                    UserToEdit.Age = model.Age;
-                if (UserToEdit.Main_subject != model.Main_subject)
-                    UserToEdit.Main_subject = model.Main_subject;
-                if (UserToEdit.BirtDate != model.Birthdate)
-                    UserToEdit.BirtDate = model.Birthdate;
-                if (UserToEdit.Address != model.address)
-                    UserToEdit.Address = model.address;
-                if (UserToEdit.PhoneNumber != model.Phone_number)
-                    UserToEdit.PhoneNumber = model.Phone_number;
-                IdentityResult result = UserManager.Update(UserToEdit);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("UpdateUser", "Home");
-                }
-                foreach (string error in result.Errors)
-                    ModelState.AddModelError("", error);
-            }
-            return View(model);
-        }
         public ActionResult RollOut()
         {
             ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            
+
             return View();
         }
         [HttpGet]
@@ -92,7 +46,8 @@ namespace Depressed.Controllers
         {
             Lichhoc lh = new Lichhoc();
             Lophoc lophoc = db.Lophocs.Where(row => row.class_id == id).FirstOrDefault();
-            if ( lophoc != null)
+            ViewBag.Name = lophoc.class_name;
+            if (lophoc != null)
             {
                 lh.lophoc_id = lophoc.class_id;
             }
@@ -101,17 +56,27 @@ namespace Depressed.Controllers
         [HttpPost]
         public ActionResult Schedule(Lichhoc lich)
         {
-            if ( ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.Lichhocs.Add(lich);
                 db.SaveChanges();
-                return RedirectToAction("Lophoc");
+                return RedirectToAction("LophocChitiet", new { id = lich.lophoc_id });
             }
             else
             {
                 return RedirectToAction("Schedule");
             }
         }
+        [HttpGet]
+        public ActionResult Schedule_Fix()
+        {
+            return View();
+        }
+        /*[HttpPost]
+        public ActionResult Schedule_Fix()
+        {
+
+        }*/
         [HttpGet]
         public ActionResult EnterMark()
         {
@@ -127,12 +92,12 @@ namespace Depressed.Controllers
         public ActionResult LophocChitiet(int id)
         {
             ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            List<ClassMember> cm = db.ClassMembers.Where(row => row.lophoc_id == id).ToList();
             ViewBag.lophoc_id = id;
-            var lopHoc = db.Lophocs.Include(x => x.Lichhoc).FirstOrDefault(y => y.class_id == id);
-            ViewBag.Check = lopHoc.Lichhoc.Any();
-            ViewBag.ViewModel = lopHoc;
-            return View(cm);
+            var classDetailViewModel = new ClassDetailViewModel();
+            classDetailViewModel.Lophoc = db.Lophocs.Find(id);
+            classDetailViewModel.Lichhocs = db.Lichhocs.Where(x => x.lophoc_id == id).ToList();
+            classDetailViewModel.ClassMembers = db.ClassMembers.Where(x => x.lophoc_id == id).ToList();
+            return View(classDetailViewModel);
         }
         [HttpGet]
         public ActionResult Add_Lophoc(string UserId)
@@ -153,7 +118,7 @@ namespace Depressed.Controllers
             {
                 db.Lophocs.Add(lop);
                 db.SaveChanges();
-                return RedirectToAction("Lophoc");
+                return RedirectToAction("Lophoc", new { UserId = User.Identity.GetUserId() });
             }
             else
             {
@@ -163,17 +128,65 @@ namespace Depressed.Controllers
         [HttpGet]
         public ActionResult Edit_Lophoc(int id)
         {
-            Lophoc lop = db.Lophocs.Where(row => row.class_id == id).FirstOrDefault();
-            return View(lop);
+            var lophoc = db.Lophocs
+                .Include(x => x.ClassMembers)
+                .Include(y => y.Lichhocs)
+                .FirstOrDefault(z => z.class_id == id);
+            return View(lophoc);
         }
         [HttpPost]
-        public ActionResult Edit_Lophoc()
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit_Lophoc(int id, Lophoc lophoc, string[] deleteMemberIds)
         {
-            if (ModelState.IsValid)
+            var lophocUpdate = db.Lophocs
+                .Include(l => l.Lichhocs)
+                .Include(x => x.ClassMembers)
+                .FirstOrDefault(y => y.class_id == id);
+            lophocUpdate.class_name = lophoc.class_name;
+            lophocUpdate.content = lophoc.content;
+            var existingLichhocs = lophocUpdate.Lichhocs.ToList();
+            foreach (var lichhocView in lophoc.Lichhocs)
             {
-
+                Lichhoc existingLichhoc;
+                if (lichhocView.id > 0)
+                {
+                    existingLichhoc = existingLichhocs.FirstOrDefault(lh => lh.id == lichhocView.id);
+                    if (existingLichhoc != null)
+                    {
+                        existingLichhoc.Ngayhoc1 = lichhocView.Ngayhoc1;
+                        existingLichhoc.Tiet_1 = lichhocView.Tiet_1;
+                        existingLichhoc.Ngayhoc2 = lichhocView.Ngayhoc2;
+                        existingLichhoc.Tiet_2 = lichhocView.Tiet_2;
+                        existingLichhoc.Ngayhoc3 = lichhocView.Ngayhoc3;
+                        existingLichhoc.Tiet_3 = lichhocView.Tiet_3;
+                    }
+                }
+                else
+                {
+                    lichhocView.lophoc_id = lophocUpdate.class_id;
+                    db.Lichhocs.Add(lichhocView);
+                }
             }
-            return View();
+            var existingMember = lophocUpdate.ClassMembers.ToList();
+            foreach (var memberView in lophoc.ClassMembers)
+            {
+                if (!existingMember.Any(cm => cm.UserId == memberView.UserId && cm.lophoc_id == lophocUpdate.class_id))
+                {
+                    ClassMember newMember = new ClassMember();
+                    newMember.UserId = memberView.UserId;
+                    lophocUpdate.ClassMembers.Add(newMember);
+                }
+            }
+            foreach (var deletedUserId in deleteMemberIds)
+            {
+                var memberToDelete = existingMember.FirstOrDefault(cm => cm.UserId == deletedUserId);
+                if (memberToDelete != null)
+                {
+                    lophocUpdate.ClassMembers.Remove(memberToDelete);
+                }
+            }
+            db.SaveChanges();
+            return RedirectToAction("Lophocct", new { id = lophocUpdate.class_id });
         }
         //Khoa hoc
         [HttpGet]
@@ -207,7 +220,7 @@ namespace Depressed.Controllers
             {
                 db.Khoahocs.Add(kh);
                 db.SaveChanges();
-                return RedirectToAction("Khoahoc");
+                return RedirectToAction("Khoahoc", new { UserId = User.Identity.GetUserId() });
             }
             else
             {
@@ -218,6 +231,7 @@ namespace Depressed.Controllers
         public ActionResult Edit_kh(int id)
         {
             Khoahoc kh = db.Khoahocs.Where(row => row.kh_id == id).FirstOrDefault();
+            ViewBag.Cate = db.Categories.ToList();
             return View(kh);
         }
         [HttpPost]
@@ -229,7 +243,7 @@ namespace Depressed.Controllers
             k.Content = kh.Content;
             k.Price = kh.Price;
             db.SaveChanges();
-            return View();
+            return RedirectToAction("Khoahocct", new { id = kh.kh_id });
         }
         public ActionResult Category(string search = "")
         {

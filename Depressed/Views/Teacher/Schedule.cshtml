@@ -3,11 +3,13 @@
     ViewBag.Title = "Schedule";
     Layout = "~/Views/Shared/Separated.cshtml";
 }
-@using (Html.BeginForm())
+<h2>Add schedule for @ViewBag.Name</h2>
+
+@using (Html.BeginForm("Schedule","Teacher",FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    @Html.Hidden("ClassId", @Model.lophoc_id)
+    @Html.Hidden("lophoc_id",@Model.lophoc_id)
     <div>
         @Html.LabelFor(m => m.Ngayhoc1, htmlAttributes: new { @class = "form-control-label" })
         @Html.TextBoxFor(m => m.Ngayhoc1, htmlAttributes: new { @class = "form-control", type = "date" })
@@ -33,6 +35,6 @@
         @Html.TextBoxFor(m => m.Tiet_3, htmlAttributes: new { @class = "form-control" })
     </div>
     <div>
-        <input type="submit" value="Update Schedule" />
+        <input type="submit" value="Thêm lịch học" />
     </div>
 }

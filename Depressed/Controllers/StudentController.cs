@@ -13,30 +13,9 @@ namespace Depressed.Controllers
     public class StudentController : Controller
     {
         // GET: Student
-        /*ApplicationDbContext db = new ApplicationDbContext();
-        [HttpGet]
-        public ActionResult Profiles()
+        public ActionResult Dashboard()
         {
             return View();
         }
-        [HttpPost]
-        public void Update(Student model)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Students.Add(model);
-            }
-            *//*using ( var context = new ApplicationDbContext())
-            {
-                context.Students.AddOrUpdate(model);
-                context.SaveChanges();
-            }*//*
-        }
-        [HttpGet]
-        public void Delete(Student model)
-        {
-            db.Students.Remove(model);
-            db.SaveChanges();
-        }*/
     }
 }

@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depressed", "Depressed\Depr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E5764C4D-A568-44E1-8664-02ABA4EF0572}"
 	ProjectSection(SolutionItems) = preProject
+		html\add-course.html = html\add-course.html
 		Incase.txt = Incase.txt
 	EndProjectSection
 EndProject

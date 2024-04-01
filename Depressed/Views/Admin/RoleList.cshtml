@@ -1,27 +1,29 @@
 ﻿@model IEnumerable<Depressed.Models.RoleViewDto>
 @{
     ViewBag.Title = "RoleList";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    Layout = "~/Views/Shared/Separated.cshtml";
 }
 
-<div class="form-group">
-    <div>
-        Không tìm thấy vai trò bạn cần? @Html.ActionLink("Thêm mới","AddRole", "Admin" ,htmlAttributes: new { @class = "control-label col-md-2" })
-    </div>
-    <table class="table">
-        <tr>
-            <th>Mã vai trò</th>
-            <th>Tên vai trò</th>
-        </tr>
-        @foreach (var roles in Model)
-        {
+<section class="page-content course-sec p-5">
+    <div class="container">
+        <div>
+            Cannot find role you need ? @Html.ActionLink("Add new role", "AddRole", "Admin", htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+        <table class="table">
             <tr>
-                <td>@roles.RoleId</td>
-                <td>@roles.Name</td>
-                <td>
-                    @Html.ActionLink("Sửa tên","UpdateRole","Admin",routeValues: new { RoleId = roles.RoleId }, htmlAttributes: new { title = "Update" })
-                </td>
+                <th>RoleId</th>
+                <th>Role name</th>
             </tr>
-        }
-    </table>
-</div>
+            @foreach (var roles in Model)
+            {
+                <tr>
+                    <td>@roles.RoleId</td>
+                    <td>@roles.Name</td>
+                    <td>
+                        @Html.ActionLink("Sửa tên", "UpdateRole", "Admin", routeValues: new { RoleId = roles.RoleId }, htmlAttributes: new { title = "Update" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</section>

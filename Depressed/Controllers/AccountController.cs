@@ -489,5 +489,10 @@ namespace Depressed.Controllers
             }
         }
         #endregion
+
+        public ActionResult Checkout()
+        {
+            return View();
+        }
     }
 }

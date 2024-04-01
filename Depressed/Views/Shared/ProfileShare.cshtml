@@ -58,49 +58,8 @@
                                 <a id="menu_close" class="menu-close" href="javascript:void(0);">
                                     <i class="fas fa-times"></i>
                                 </a>
-                            </div>
-                            @if (User.IsInRole("Teacher"))
-                            {
-                                <ul class="main-nav">
-                                    <li class="">
-                                        @Html.ActionLink("Home", "Index", "Home")
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Instructor <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">Dashboard</a></li>
-                                            <li class="has-submenu">
-                                                <a href="instructor-list.html">Your classes</a>
-                                                <ul class="submenu">
-                                                    <li><a href="instructor-list.html">List</a></li>
-                                                    <li><a href="instructor-grid.html">Grid</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="instructor-course.html">My Course</a></li>
-                                            <li><a href="instructor-reviews.html">Reviews</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Setting up <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu first-submenu">
-                                            <li><a href="setting-student-subscription.html">Your courses</a></li>
-                                            <li><a href="setting-student-billing.html">Class schdules</a></li>
-                                            <li><a href="setting-student-payment.html">Information</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Check-in <i class="fas fa-chevron-down"></i></a>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Your working <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="blog-list.html">Hours</a></li>
-                                            <li><a href="blog-grid.html">Salary</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            }
-                            else if (User.IsInRole("Student"))
+                            </div> 
+                            @if (User.IsInRole("Student"))
                             {
                                 <ul class="main-nav">
                                     <li class="has-submenu active">
@@ -109,29 +68,25 @@
                                     <li class="has-submenu">
                                         <a href="#">Your classes<i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">Dashboard</a></li>
-
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Courses <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu first-submenu">
-                                            <li class="has-submenu ">
-                                                <a href="students-list.html">Attended Courses</a>
+                                            <li><a href="instructor-dashboard.html">All classes</a></li>
+                                            <li class="has-submenu">
+                                                <a href="instructor-dashboard.html">Class</a>
                                                 <ul class="submenu">
-                                                    <li><a href="students-list.html">List</a></li>
-                                                    <li><a href="students-grid.html">Grid</a></li>
+                                                    <li><a href="students-list.html">IELTS</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="setting-edit-profile.html">Browse more</a></li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Your check-in <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="notifications.html">Notification</a></li>
-                                            <li><a href="pricing-plan.html">Pricing Plan</a></li>
+                                        <a href="#">Your Courses<i class="fas fa-chevron-down"></i></a>
+                                        <ul class="submenu first-submenu">
+                                            <li class="has-submenu ">
+                                                <a href="#">Attended Courses</a>
+                                            </li>
                                         </ul>
+                                    </li>
+                                    <li class="has-submenu">
+                                        <a href="#">Your check-in</a>
                                     </li>
                                 </ul>
                             }
@@ -144,8 +99,8 @@
                                     <li class="has-submenu">
                                         <a href="#">List <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">Users</a></li>
-                                            <li><a href="instructor-course.html">Roles</a></li>
+                                            <li>@Html.ActionLink("Users", "List", "Admin")</li>
+                                            <li>@Html.ActionLink("Users", "RoleList", "Admin")</li>
                                             <li class="has-submenu">
                                                 <a href="instructor-list.html">Teachers</a>
                                                 <ul class="submenu">
@@ -160,12 +115,10 @@
                             else
                             {
                                 <ul class="main-nav">
-                                    <li class="has-submenu">
-                                        <ul class="submenu">
-                                            @Html.ActionLink("Home", "Index", "Home")
-                                        </ul>
-                                    </li>
                                     <li class="has-submenu active">
+                                        @Html.ActionLink("Home", "Index", "Home")
+                                    </li>
+                                    <li class="has-submenu">
                                         <a href="#">Current Courses </a>
                                     </li>
                                     <li class="has-submenu">

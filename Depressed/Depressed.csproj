@@ -201,6 +201,14 @@
     <Compile Include="Migrations\202403240605045_More.Designer.cs">
       <DependentUpon>202403240605045_More.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202403250459504_WTF.cs" />
+    <Compile Include="Migrations\202403250459504_WTF.Designer.cs">
+      <DependentUpon>202403250459504_WTF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403250652483_Back.cs" />
+    <Compile Include="Migrations\202403250652483_Back.Designer.cs">
+      <DependentUpon>202403250652483_Back.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -757,6 +765,98 @@
     <Content Include="Scripts\mail\jqBootstrapValidation.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\scss\tailwind.config.js" />
+    <Content Include="Template\add-course.html" />
+    <Content Include="Template\appointments.html" />
+    <Content Include="Template\blog-details.html" />
+    <Content Include="Template\blog-grid.html" />
+    <Content Include="Template\blog-list.html" />
+    <Content Include="Template\blog-masonry.html" />
+    <Content Include="Template\blog-modern.html" />
+    <Content Include="Template\booking.html" />
+    <Content Include="Template\cart.html" />
+    <Content Include="Template\chat.html" />
+    <Content Include="Template\checkout.html" />
+    <Content Include="Template\come-soon.html" />
+    <Content Include="Template\course-details.html" />
+    <Content Include="Template\course-details.html.html" />
+    <Content Include="Template\course-grid.html" />
+    <Content Include="Template\course-lesson.html" />
+    <Content Include="Template\course-list.html" />
+    <Content Include="Template\course-message.html" />
+    <Content Include="Template\course-student.html" />
+    <Content Include="Template\course-wishlist.html" />
+    <Content Include="Template\dashboard-instructor.html" />
+    <Content Include="Template\dashboard-mentee.html" />
+    <Content Include="Template\dashboard.html" />
+    <Content Include="Template\deposit-instructor-dashboard.html" />
+    <Content Include="Template\deposit-instructor.html" />
+    <Content Include="Template\deposit-student-dashboard.html" />
+    <Content Include="Template\deposit-student.html" />
+    <Content Include="Template\error-404.html" />
+    <Content Include="Template\error-500.html" />
+    <Content Include="Template\faq.html" />
+    <Content Include="Template\forgot-password.html" />
+    <Content Include="Template\index-four.html" />
+    <Content Include="Template\index-three.html" />
+    <Content Include="Template\index-two.html" />
+    <Content Include="Template\index.html" />
+    <Content Include="Template\instructor-chat.html" />
+    <Content Include="Template\instructor-course.html" />
+    <Content Include="Template\instructor-dashboard.html" />
+    <Content Include="Template\instructor-delete-profile.html" />
+    <Content Include="Template\instructor-earnings.html" />
+    <Content Include="Template\instructor-edit-profile.html" />
+    <Content Include="Template\instructor-grid.html" />
+    <Content Include="Template\instructor-linked-account.html" />
+    <Content Include="Template\instructor-list.html" />
+    <Content Include="Template\instructor-new-tickets.html" />
+    <Content Include="Template\instructor-notification.html" />
+    <Content Include="Template\instructor-orders.html" />
+    <Content Include="Template\instructor-payouts.html" />
+    <Content Include="Template\instructor-profile-privacy.html" />
+    <Content Include="Template\instructor-profile.html" />
+    <Content Include="Template\instructor-reviews.html" />
+    <Content Include="Template\instructor-security.html" />
+    <Content Include="Template\instructor-social-profiles.html" />
+    <Content Include="Template\instructor-student-grid.html" />
+    <Content Include="Template\instructor-student-list.html" />
+    <Content Include="Template\instructor-tickets.html" />
+    <Content Include="Template\job-category.html" />
+    <Content Include="Template\login.html" />
+    <Content Include="Template\notifications.html" />
+    <Content Include="Template\pricing-plan.html" />
+    <Content Include="Template\privacy-policy.html" />
+    <Content Include="Template\purchase-history.html" />
+    <Content Include="Template\register.html" />
+    <Content Include="Template\search.html" />
+    <Content Include="Template\setting-edit-profile.html" />
+    <Content Include="Template\setting-student-accounts.html" />
+    <Content Include="Template\setting-student-billing.html" />
+    <Content Include="Template\setting-student-delete-profile.html" />
+    <Content Include="Template\setting-student-invoice.html" />
+    <Content Include="Template\setting-student-notification.html" />
+    <Content Include="Template\setting-student-payment.html" />
+    <Content Include="Template\setting-student-privacy.html" />
+    <Content Include="Template\setting-student-referals.html" />
+    <Content Include="Template\setting-student-referral.html" />
+    <Content Include="Template\setting-student-security.html" />
+    <Content Include="Template\setting-student-social-profile.html" />
+    <Content Include="Template\setting-student-subscription.html" />
+    <Content Include="Template\setting-support-new-tickets.html" />
+    <Content Include="Template\setting-support-tickets.html" />
+    <Content Include="Template\student-invoice.html" />
+    <Content Include="Template\student-profile.html" />
+    <Content Include="Template\students-grid.html" />
+    <Content Include="Template\students-list.html" />
+    <Content Include="Template\support.html" />
+    <Content Include="Template\term-condition.html" />
+    <Content Include="Template\test.js" />
+    <Content Include="Template\transactions-instructor.html" />
+    <Content Include="Template\transactions-student.html" />
+    <Content Include="Template\under-construction.html" />
+    <Content Include="Template\view-invoice.html" />
+    <Content Include="Template\wishlist.html" />
+    <Content Include="Template\withdrawal-instructor.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -895,9 +995,7 @@
     <Content Include="Views\Admin\AddRole.cshtml" />
     <Content Include="Views\Admin\RoleList.cshtml" />
     <Content Include="Views\Teacher\RollOut.cshtml" />
-    <Content Include="Views\Student\Profiles.cshtml" />
     <Content Include="Views\Teacher\Add_Lophoc.cshtml" />
-    <Content Include="Views\Teacher\Profile.cshtml" />
     <Content Include="Views\Teacher\Create_Profile.cshtml" />
     <Content Include="Views\Shared\ProfileShare.cshtml" />
     <Content Include="Views\Home\Security.cshtml" />
@@ -912,10 +1010,15 @@
     <Content Include="Views\Teacher\NewCategory.cshtml" />
     <Content Include="Views\Teacher\Schedule.cshtml" />
     <Content Include="Views\Teacher\LophocChitiet.cshtml" />
+    <Content Include="Views\Teacher\Khoahocct.cshtml" />
+    <Content Include="Views\Account\Checkout.cshtml" />
+    <Content Include="Views\Teacher\Edit_Lophoc.cshtml" />
+    <Content Include="Views\Teacher\Edit_kh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Views\Student\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -962,6 +1065,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202403240605045_More.resx">
       <DependentUpon>202403240605045_More.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403250459504_WTF.resx">
+      <DependentUpon>202403250459504_WTF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403250652483_Back.resx">
+      <DependentUpon>202403250652483_Back.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

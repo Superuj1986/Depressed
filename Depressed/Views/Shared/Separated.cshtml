@@ -79,24 +79,21 @@
                                     <li class="has-submenu">
                                         <a href="#">Instructor <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">Dashboard</a></li>
+                                            <li>@Html.ActionLink("Dashboard", "Dashboard", "Teacher")</li>
+                                            <li></li>
                                             <li class="has-submenu">
-                                                <a href="instructor-list.html">Your classes</a>
+                                                <a href="#">My classes</a>
                                                 <ul class="submenu">
-                                                    <li><a href="instructor-list.html">List</a></li>
-                                                    <li><a href="instructor-grid.html">Grid</a></li>
+                                                    <li>@Html.ActionLink("All Classes", "Lophoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Class" })</li>
                                                 </ul>
                                             </li>
-                                            <li><a href="instructor-course.html">My Course</a></li>
-                                            <li><a href="instructor-reviews.html">Reviews</a></li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
                                         <a href="#">Setting up <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu first-submenu">
-                                            <li><a href="setting-student-subscription.html">Your courses</a></li>
-                                            <li><a href="setting-student-billing.html">Class schdules</a></li>
-                                            <li><a href="setting-student-payment.html">Information</a></li>
+                                            <li>@Html.ActionLink("My Courses", "Khoahoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Course" })</li>
+
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
@@ -120,21 +117,21 @@
                                     <li class="has-submenu">
                                         <a href="#">Your classes<i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">Dashboard</a></li>
-
+                                            <li><a href="instructor-dashboard.html">All classes</a></li>
+                                            <li class="has-submenu">
+                                                <a href="instructor-dashboard.html">Class</a>
+                                                <ul class="submenu">
+                                                    <li><a href="students-list.html">IELTS</a></li>
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Courses <i class="fas fa-chevron-down"></i></a>
+                                        <a href="#">Your Courses<i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu first-submenu">
                                             <li class="has-submenu ">
-                                                <a href="students-list.html">Attended Courses</a>
-                                                <ul class="submenu">
-                                                    <li><a href="students-list.html">List</a></li>
-                                                    <li><a href="students-grid.html">Grid</a></li>
-                                                </ul>
+                                                <a href="#">Attended Courses</a>
                                             </li>
-                                            <li><a href="setting-edit-profile.html">Browse more</a></li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">

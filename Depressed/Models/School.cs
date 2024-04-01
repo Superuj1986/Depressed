@@ -97,7 +97,8 @@ namespace Depressed.Models
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
-        public virtual ICollection<Lichhoc> Lichhoc { get; set; }
+        public virtual ICollection<Lichhoc> Lichhocs { get; set; }
+        public virtual ICollection<ClassMember> ClassMembers { get; set; }
     }
     public class Lichhoc
     {
@@ -106,9 +107,9 @@ namespace Depressed.Models
         public int id { get; set; }
         [ForeignKey("Lophoc")]
         public int lophoc_id { get; set; }
-        public  virtual Lophoc Lophoc { get; set; }
-        public DateTime? Ngayhoc1 {  get; set; }
-        public string Tiet_1 {  get; set; }
+        public virtual Lophoc Lophoc { get; set; }
+        public DateTime? Ngayhoc1 { get; set; }
+        public string Tiet_1 { get; set; }
         public DateTime? Ngayhoc2 { get; set; }
         public string Tiet_2 { get; set; }
         public DateTime? Ngayhoc3 { get; set; }
@@ -119,9 +120,6 @@ namespace Depressed.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-        [ForeignKey("Lichhoc")]
-        public int lh_id { get; set; }
-        public virtual Lichhoc Lichhoc { get; set; }
         [Required]
         public string Lec_Content { get; set; }
         public DateTime? date { get; set; }

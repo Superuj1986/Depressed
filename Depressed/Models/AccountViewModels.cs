@@ -11,7 +11,7 @@ namespace Depressed.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email")]       
         public string Email { get; set; }
     }
 
@@ -211,6 +211,41 @@ namespace Depressed.Models
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
+        public string Fullname { get; set; }
+        public string Phonenumber { get; set; }
+        public string Age { get; set; }
+        public string Address { get; set; }
         public string RoleName { get; set; }
+    }
+    public class ClassDetailViewModel
+    {
+        public Lophoc Lophoc { get; set; }
+        public IEnumerable<Lichhoc> Lichhocs { get; set; }
+        public IEnumerable<ClassMember> ClassMembers { get; set; }
+    }
+    public class EditDetailViewModel
+    {
+        public Lophoc Lophoc { get; set; }
+        public IEnumerable<Lichhoc> Lichhocs { get; set; }
+        public IEnumerable<ClassMember> ClassMembers { get; set; }
+    }
+    public class DeleteUser
+    {
+        public string UserId { get; set; }
+        [Display(Name = "Username")]
+        [Required]
+        public string UserName { get; set; }
+        [Display(Name = "Fullname")]
+        public string FullName { get; set; }
+        [Display(Name = "Age")]
+        public string Age { get; set; }
+        [Display(Name = "Main subject")]
+        public string Main_subject { get; set; }
+        [Display(Name = "Birth Date")]
+        public DateTime? Birthdate { get; set; }
+        [Display(Name = "Address")]
+        public string address { get; set; }
+        [Display(Name = "Phone number")]
+        public string Phone_number { get; set; }
     }
 }

@@ -1,35 +1,93 @@
 ﻿@model IEnumerable<Depressed.Models.UserList>
 @{
     ViewBag.Title = "Trang chủ Admin";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    Layout = "~/Views/Shared/Separated.cshtml";
 }
-<h2>@ViewBag.Title</h2>
-<body>
-    <div>
-        <p>Danh sách người dùng đến thời điểm hiện tại</p>
-
-    </div>
-    <table class="table">
-        <tr>
-            <td>UserId</td>
-            <td>UserName</td>
-            <td>Email</td>
-            <td>FirstName</td>
-            <td>LastName</td>
-            <td>RoleName</td>
-        </tr>
-        @foreach (var user in Model)
-        {
+<section class="page-content course-sec p-5">
+    <div class="container">
+        <table class="table">
             <tr>
-                <td>@user.UserId</td>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                <td>@user.RoleName</td>
-                <td>
-                    @Html.ActionLink("Xóa", "DeleteUser", "Admin", routeValues:new { UserId = user.UserId}, htmlAttributes: new { title = "Delete" })
-                </td>
+                <td>UserId</td>
+                <td>UserName</td>
+                <td>Email</td>
+                <td>FullName</td>
+                <td>Phone number</td>
+                <td>Age</td>
+                <td>Address</td>
+                <td>Role</td>
+                <td>Action</td>
             </tr>
-        }
-    </table>
-</body>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Fullname</td>
+                    <td>@user.Phonenumber</td>
+                    <td>@user.Age</td>
+                    <td>@user.Address</td>
+                    <td>@user.RoleName</td>
+                    <td>
+                        <button class="deleteUser" data-bs-toggle="modal" data-bs-target="#deleteModal" data-userid="@user.UserId">
+                            Delete
+                        </button>
+                    </td>
+                    <td><input type="hidden" name="UserId" value="@user.UserId " /></td>
+                </tr>
+            }
+        </table>
+    </div>
+</section>
+<div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="deleteUser" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Delete this user ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("DeleteUser", "Admin", FormMethod.Post))
+                {
+                    <table>
+                        <tr>
+                            <td>UserId</td>
+                            <td><span id="UserId"></span></td>
+                        </tr>
+                    </table>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnDeleteUser" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismis="modal" id="btnDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".deleteUser").click(function () {
+        var UserId = $(this).data("user-id");
+        // Ajax request để lấy thông tin chi tiết về người dùng
+        $.ajax({
+            url: "/Admin/DeleteUser?UserId=" + UserId,
+            method: "GET",
+            success: function (data) {
+                // Hiển thị modal với thông tin chi tiết
+                $("#modal-body").html(data);
+                $("#deleteModal").modal("show");
+            }
+        });
+    });
+    $(".btnDeleteUser").click(function () {
+        var userId = $(this).data("user-id");
 
+        if (!confirm("Bạn có chắc chắn muốn xóa người dùng này?")) {
+            return false;
+        }
+
+        // Submit form để xóa người dùng
+        $("#deleteModal").submit();
+    });
+</script>

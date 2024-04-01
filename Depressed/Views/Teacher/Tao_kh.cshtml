@@ -65,6 +65,9 @@
                                     ),
                                     new { @class = "form-control" })
                             </div>
+                            <div>
+                                <p>Cannot find the category you want ? @Html.ActionLink("Add new Category", "NewCategory","Teacher",htmlAttributes: new { title = "Add Category"} )</p>
+                            </div>
                             <div class="input-block mb-0">
                                 <label class="add-course-label">Course Description</label>
                                 @Html.TextAreaFor(model => model.Content)
@@ -74,69 +77,12 @@
                                 @Html.LabelFor(m => m.Price, new { @class = "add-course-label" })
                                 @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
                             </div>
-                            <!--<div class="widget-content multistep-form">
-                                <fieldset id="first">
-                                        <div class="add-course-info">
-                                            <div class="add-course-inner-header">
-                                                <h4>Basic Information</h4>
-                                            </div>
-                                            <div class="add-course-form">
-
-
-                                            </div>
-                                            <div class="widget-btn">
-                                                <a class="btn btn-black">Back</a>
-                                                <a class="btn btn-info-light next_btn">Continue</a>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset class="field-card">
-                                        <div class="add-course-info">
-                                            <div class="add-course-inner-header">
-                                                <h4>Courses Media</h4>
-                                            </div>
-                                            <div class="add-course-form">
-                                                <div class="input-block">
-                                                    <label class="add-course-label">Course cover image</label>
-                                                    <div class="relative-form">
-                                                        <span>No File Selected</span>
-                                                        <label class="relative-file-upload">
-                                                            Upload File <input type="file">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-btn">
-                                                <a class="btn btn-black prev_btn">Previous</a>
-                                                <a class="btn btn-info-light next_btn">Continue</a>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset class="field-card">
-                                        <div class="add-course-info">
-                                            <div class="add-course-inner-header">
-                                                <h4>Requirements</h4>
-                                            </div>
-                                            <div class="add-course-form">
-                                                <div class="input-block input-block-tagsinput">
-                                                    <input type="text" data-role="tagsinput" class="input-tags form-control" name="html" value="jquery, bootstrap" id="html">
-                                                </div>
-
-                                            </div>
-                                            <div class="widget-btn">
-                                                <a class="btn btn-black prev_btn">Previous</a>
-                                                <a class="btn btn-info-light next_btn">Continue</a>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                            </div>-->
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary btn-start">Create Course</button>
                             </div>
                         }
                     </div>
                     <!-- /Course Wizard -->
-
                 </div>
             </div>
         </div>

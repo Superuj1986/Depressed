@@ -1,0 +1,12 @@
+﻿@model Depressed.Models.Khoahoc
+@{
+    ViewBag.Title = "Edit your Course";
+    Layout = "~/Views/Shared/Separated.cshtml";
+}
+@using (Html.BeginForm("Edit_kh", ""))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("kh_id", @Model.kh_id)
+    
+}
+

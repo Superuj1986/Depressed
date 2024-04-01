@@ -1,4 +1,5 @@
-﻿@model List<Depressed.Models.Khoahoc>
+﻿@using Microsoft.AspNet.Identity
+@model List<Depressed.Models.Khoahoc>
 @{
     ViewBag.Title = "Class";
     Layout = "~/Views/Shared/TeacherSideBar.cshtml";
@@ -24,16 +25,6 @@
                                                 <input type="text" class="form-control" placeholder="Search our courses">
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-lg-6 col-item">
-                                            <div class="input-block select-form mb-0">
-                                                <select class="form-select select" name="sellist1">
-                                                    <option>Choose</option>
-                                                    <option>Angular</option>
-                                                    <option>React</option>
-                                                    <option>Node</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -45,8 +36,8 @@
                                 <thead>
                                     <tr>
                                         <th>COURSES</th>
-                                        <th>STUDENTS</th>
-                                        <th>STATUS</th>
+                                        <th>CATEGORIES</th>
+                                        <th>DETAILS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,9 +67,8 @@
                                                 @Html.ActionLink("Details","")
                                             </td>*@
                                             <td>@kh.name</td>
-                                            <td>@kh.Category.ca_name</td>
-                                            <td>@kh.Content</td>
-                                            <td>@kh.Price</td>
+                                            <td>@kh.Category.ca_name</td> 
+                                            <td>@Html.ActionLink("Course Details","Khoahocct","Teacher",routeValues:new { id = kh.kh_id }, htmlAttributes:new { title = "Details"})</td>
                                         </tr>
                                     }
                                 </tbody>

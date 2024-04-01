@@ -51,7 +51,7 @@ namespace Depressed.Controllers
         {
             ApplicationRoleManager RoleManager = HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             var roles = RoleManager.Roles
-                .Where(x=>!x.Name.Equals("Admin"))
+                //.Where(x=>!x.Name.Equals("Admin"))
                 .Select(x => new RoleViewDto() {RoleId=x.Id,Name=x.Name})
                 .ToList();
 
@@ -63,7 +63,7 @@ namespace Depressed.Controllers
         {
             ApplicationRoleManager RoleManager = HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             var roles = RoleManager.Roles
-                .Where(x=>!x.Name.Equals("Admin"))
+                //.Where(x=>!x.Name.Equals("Admin"))
                 .Select(x => new RoleViewDto() { RoleId = x.Id, Name = x.Name })
                 .ToList();
 
@@ -145,7 +145,7 @@ namespace Depressed.Controllers
                 IdentityResult result = UserManager.Update(UserToEdit);
                 if ( result.Succeeded)
                 {
-                    return RedirectToAction("UpdateUser", "Home");
+                    return RedirectToAction("UpdateUser", "Home",new { UserId = User.Identity.GetUserId()});
                 }
                 foreach (string error in result.Errors)
                     ModelState.AddModelError("", error);

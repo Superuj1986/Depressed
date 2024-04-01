@@ -1,55 +1,39 @@
-﻿@model List<Depressed.Models.ClassMember>
+﻿@using Microsoft.AspNet.Identity
+@model Depressed.Models.ClassDetailViewModel
 @{
-    ViewBag.Title = "LophocChitiet";
+    ViewBag.Title = "Class Details";
     Layout = "~/Views/Shared/Separated.cshtml";
-    var lophocViewModel = ViewBag.ViewModel as List<Depressed.Models>;
 }
-<body>
-    <div>
-        <p>Class Details</p>
+<section class="page-content course-sec p-5">
+    <div class="container">
+        @Html.ActionLink("Back to Classes", "Lophoc", "Teacher",routeValues:new { UserId = User.Identity.GetUserId()},htmlAttributes: new { title = "Back"})
         <div>
-            <table>
-                @if ((bool)ViewBag.Check)
-                {
-                    <tr>
-                        <th>Date</th>
-                        <th>Period</th>
-                    </tr>
-                    foreach (var lichHoc in lophocViewModel)
+            <p>Class name: @Model.Lophoc.class_name</p>
+            <p>Class Description: @Model.Lophoc.content</p>
+            @if (Model.Lichhocs.Any())
+            {
+                <ul class="list-unstyled">
+                    <li>Class Schedule</li>
+                    @foreach (var lichhoc in Model.Lichhocs)
                     {
-                        <tr>
-                            <td>@lichHoc.Ngayhoc1.</td>
-                            <td>@lichHoc.Tiet_1</td>
-                        </tr>
-                        <tr>
-                            <td>@lichHoc.Ngayhoc2</td>
-                            <td>@lichHoc.Tiet_2</td>
-                        </tr>
-                        <tr>
-                            <td>@lichHoc.Ngayhoc3</td>
-                            <td>@lichHoc.Tiet_3</td>
-                        </tr>
-
+                        <li>@lichhoc.Ngayhoc1.Value.ToString("dd/MM/yyyy") - @lichhoc.Tiet_1</li>
+                        <li>@lichhoc.Ngayhoc2.Value.ToString("dd/MM/yyyy") - @lichhoc.Tiet_2</li>
+                        <li>@lichhoc.Ngayhoc3.Value.ToString("dd/MM/yyyy") - @lichhoc.Tiet_3</li>
                     }
-                }
-                else
-                {
-                    @Html.ActionLink("Add Schedule", "Schedule", "Teacher", routeValues: new { id = ViewBag.lophoc_id }, htmlAttributes: new { title = "Add" });
-                }
-            </table>
+                </ul>
+            }
+            else
+            {
+                <p>This class does not have schedule. @Html.ActionLink("Click here to add schedule", "Schedule", "Teacher", routeValues: new { id = Model.Lophoc.class_id }, htmlAttributes: new { title = "Add Schedule" })</p>
+            }
+
         </div>
+        <ul class="list-unstyled">
+            @foreach (var member in Model.ClassMembers)
+            {
+                <li>@member.ApplicationUser.UserName</li>
+            }
+        </ul>
+        @Html.ActionLink("Update your class", "Edit_Lophoc","Teacher",routeValues:new {id = Model.Lophoc.class_id},htmlAttributes:new {title = "Update"})
     </div>
-    <table class="table">
-        <tr>
-            <td>UserId</td>
-            <td>UserName</td>
-        </tr>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.UserId</td>
-                <td>@user.ApplicationUser.UserName</td>
-            </tr>
-        }
-    </table>
-</body>
+</section>

@@ -34,7 +34,7 @@ namespace Depressed.Models
         public DbSet<Thongbao> Thongbaos { get; set; }
         public DbSet<ClassMember> ClassMembers { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Lichhoc> Lichhocs {  get; set; }
+        public DbSet<Lichhoc> Lichhocs { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

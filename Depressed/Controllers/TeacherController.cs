@@ -132,6 +132,7 @@ namespace Depressed.Controllers
                 .Include(x => x.ClassMembers)
                 .Include(y => y.Lichhocs)
                 .FirstOrDefault(z => z.class_id == id);
+            var check = null;
             return View(lophoc);
         }
         [HttpPost]

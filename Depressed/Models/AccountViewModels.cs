@@ -38,7 +38,7 @@ namespace Depressed.Models
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Remember this browser")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -108,6 +108,8 @@ namespace Depressed.Models
         public string address { get; set; }
         [Display(Name = "Phone number")]
         public string Phone_number { get; set; }
+        [Display(Name = "Two or three words about you")]
+        public string ShortDesc { get; set; }
     }
     public class ChangeEmail
     {
@@ -215,6 +217,7 @@ namespace Depressed.Models
         public string Phonenumber { get; set; }
         public string Age { get; set; }
         public string Address { get; set; }
+        public string ShortDesc { get; set; }
         public string RoleName { get; set; }
     }
     public class ClassDetailViewModel
@@ -226,26 +229,35 @@ namespace Depressed.Models
     public class EditDetailViewModel
     {
         public Lophoc Lophoc { get; set; }
+        public Lichhoc Lichhocs { get; set; }
+        public IEnumerable<ClassMember> ClassMembers { get; set; }
+    }
+    public class RollOutDetailViewModel
+    {
+        public IEnumerable<Lophoc> Lophoc { get; set; }
         public IEnumerable<Lichhoc> Lichhocs { get; set; }
         public IEnumerable<ClassMember> ClassMembers { get; set; }
     }
-    public class DeleteUser
+    public class PostModel
     {
         public string UserId { get; set; }
-        [Display(Name = "Username")]
-        [Required]
-        public string UserName { get; set; }
-        [Display(Name = "Fullname")]
-        public string FullName { get; set; }
-        [Display(Name = "Age")]
-        public string Age { get; set; }
-        [Display(Name = "Main subject")]
-        public string Main_subject { get; set; }
-        [Display(Name = "Birth Date")]
-        public DateTime? Birthdate { get; set; }
-        [Display(Name = "Address")]
-        public string address { get; set; }
-        [Display(Name = "Phone number")]
-        public string Phone_number { get; set; }
+        public string title {  get; set; }
+        public string description { get; set; }
+        public string Fullname { get; set; }
+        public DateTime? public_date { get; set; }
+
+    }
+    public class TrueBlog
+    {
+        public Post_Post Post_s { get; set; }
+        public IEnumerable<Main_Comment> main_Comments { get; set; }
+        public IEnumerable<Sub_Comment> sub_Comments { get; set; }
+        public string NewComment { get; set; }
+    }
+    public class RollOutModel
+    {
+        public List<Lophoc> Lophoc { get; set; }
+        public Lichhoc Lichhoc { get; set; }
+        public List<ClassMember> ClassMembers { get; set; }
     }
 }

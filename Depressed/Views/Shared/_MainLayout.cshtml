@@ -79,21 +79,21 @@
                                     <li class="has-submenu">
                                         <a href="#">Instructor <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li>@Html.ActionLink("Dashboard","Dashboard","Teacher")</li>
+                                            <li>@Html.ActionLink("Dashboard", "Dashboard", "Teacher")</li>
                                             <li></li>
                                             <li class="has-submenu">
                                                 <a href="#">My classes</a>
                                                 <ul class="submenu">
                                                     <li>@Html.ActionLink("All Classes", "Lophoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Class" })</li>
                                                 </ul>
-                                            </li> 
+                                            </li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
                                         <a href="#">Setting up <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu first-submenu">
                                             <li>@Html.ActionLink("My Courses", "Khoahoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Course" })</li>
-                                            
+                                            <li>@Html.ActionLink("My Blogs", "YourPost", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Blog" })</li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
@@ -102,8 +102,8 @@
                                     <li class="has-submenu">
                                         <a href="#">Your working <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="blog-list.html">Hours</a></li>
-                                            <li><a href="blog-grid.html">Salary</a></li>
+                                            <li><a href="#">Hours</a></li>
+                                            <li><a href="#">Salary</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -117,13 +117,7 @@
                                     <li class="has-submenu">
                                         <a href="#">Your classes<i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">All classes</a></li>
-                                            <li class="has-submenu">
-                                                <a href="instructor-dashboard.html">Class</a>
-                                                <ul class="submenu">
-                                                    <li><a href="students-list.html">IELTS</a></li>
-                                                </ul>
-                                            </li>
+                                            <li>@Html.ActionLink("All Classes","ListClass","Student")</li>
                                         </ul>
                                     </li>
                                     <li class="has-submenu">
@@ -137,6 +131,9 @@
                                     <li class="has-submenu">
                                         <a href="#">Your check-in</a>
                                     </li>
+                                    <li class="has-submenu">
+                                        @Html.ActionLink("Blog", "HomeBlog", "Home")
+                                    </li>
                                 </ul>
                             }
                             else if (User.IsInRole("Admin"))
@@ -149,7 +146,7 @@
                                         <a href="#">List <i class="fas fa-chevron-down"></i></a>
                                         <ul class="submenu">
                                             <li>@Html.ActionLink("Users", "List", "Admin")</li>
-                                            <li>@Html.ActionLink("Users", "RoleList", "Admin")</li>
+                                            <li>@Html.ActionLink("Roles", "RoleList", "Admin")</li>
                                             <li class="has-submenu">
                                                 <a href="instructor-list.html">Teachers</a>
                                                 <ul class="submenu">
@@ -159,6 +156,7 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    <li>@Html.ActionLink("Pending Blogs", "Blog", "Admin")</li>
                                 </ul>
                             }
                             else
@@ -168,13 +166,13 @@
                                         @Html.ActionLink("Home", "Index", "Home")
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Current Courses </a>
+                                        @Html.ActionLink("Current Courses","Courses","Home")
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Curent Teachers </a>
+                                        @Html.ActionLink("Current Teachers", "Teachers", "Home")
                                     </li>
                                     <li class="has-submenu">
-                                        <a href="#">Blog </a>
+                                        @Html.ActionLink("Blog", "HomeBlog", "Home")
                                     </li>
                                 </ul>
                             }
@@ -324,7 +322,7 @@
                                         else if (User.IsInRole("Teacher"))
                                         {
                                             <p class="dropdown-item"><i class="feather-home me-1"></i>@Html.ActionLink("Dashboard", "Dashboard", "Teacher")</p>
-                                            <p class="dropdown-item"><i class="feather-star me-1"></i>@Html.ActionLink("Edit Profile", "Profile", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Update" })</p>
+                                            <p class="dropdown-item"><i class="feather-star me-1"></i>@Html.ActionLink("Edit Profile", "UpdateUser", "Home", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Update" })</p>
                                         }
                                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                                         {

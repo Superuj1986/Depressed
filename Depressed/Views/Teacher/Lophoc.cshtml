@@ -16,12 +16,14 @@
                     <div class="comman-space pb-0">
                         <div class="instruct-search-blk">
                             <div class="show-filter choose-search-blk">
-                                <form action="#">
+                                <form action="@Url.Action("Lophoc", "Teacher")" method="get">
                                     <div class="row gx-2 align-items-center">
                                         <div class="col-md-6 col-item">
                                             <div class=" search-group">
                                                 <i class="feather-search"></i>
-                                                <input type="text" class="form-control" placeholder="Search our classes">
+                                                <input type="text" class="form-control" name="search" placeholder="Search our classes">
+                                                <input type="hidden" name="UserId" value="@ViewBag.UserId" />
+                                                <button type="submit" class="btn btn-primary">Search</button>
                                             </div>
                                         </div>
                                     </div>
@@ -29,12 +31,12 @@
                             </div>
                         </div>
                         <div class="settings-tickets-blk course-instruct-blk table-responsive">
-
-                            <!-- Referred Users-->
                             <table class="table table-nowrap mb-2">
                                 <thead>
                                     <tr>
                                         <th>CLASS</th>
+                                        <th>STUDENTS</th>
+                                        <th>DETAILS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,6 +68,7 @@
                                             <td>3200</td>
                                             <td><span class="badge info-low">Live</span></td>*@
                                             <td>@lop.class_name</td>
+                                            <td>900</td>
                                             <td>@Html.ActionLink("Details", "LophocChitiet","Teacher",routeValues:new { id = @lop.class_id },htmlAttributes:new { title = "Details"})</td>
                                         </tr>
                                     }

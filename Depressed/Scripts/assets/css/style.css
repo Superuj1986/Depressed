@@ -25524,3 +25524,7 @@ input[type=password]::-ms-clear
     }
 }
 
+.reply_sec{
+    padding-left:100px
+}
+

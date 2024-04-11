@@ -1,5 +1,7 @@
-﻿@model Depressed.Models.Khoahoc
+﻿@using Microsoft.AspNet.Identity
+@model Depressed.Models.Khoahoc
 @{
+    ViewBag.Title = "Add your Course";
     Layout = "~/Views/Shared/Separated.cshtml";
     var ca = ViewBag.Cate as List<Depressed.Models.Category>;
 }
@@ -13,10 +15,7 @@
                     <div class="add-course-btns">
                         <ul class="nav">
                             <li>
-                                <a href="dashboard-instructor.html" class="btn btn-black">Back to Course</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="btn btn-success-dark">Save</a>
+                                <a href="~/Teacher/Khoahoc?UserId=@User.Identity.GetUserId()" class="btn btn-black">Back to Course</a>
                             </li>
                         </ul>
                     </div>
@@ -29,22 +28,6 @@
 
                     <!-- Course Wizard -->
                     <div class="widget-set">
-                        <div class="widget-setcount">
-                            <ul id="progressbar">
-                                <li class="progress-active">
-                                    <p><span></span> Basic Information</p>
-                                </li>
-                                <li>
-                                    <p><span></span> Courses Media</p>
-                                </li>
-                                <li>
-                                    <p><span></span> Curriculum</p>
-                                </li>
-                                <li>
-                                    <p><span></span> Settings</p>
-                                </li>
-                            </ul>
-                        </div>
                         @using (Html.BeginForm("Tao_kh", "Teacher", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
@@ -65,13 +48,12 @@
                                     ),
                                     new { @class = "form-control" })
                             </div>
-                            <div>
+                            <div class="input-block">
                                 <p>Cannot find the category you want ? @Html.ActionLink("Add new Category", "NewCategory","Teacher",htmlAttributes: new { title = "Add Category"} )</p>
                             </div>
                             <div class="input-block mb-0">
-                                <label class="add-course-label">Course Description</label>
-                                @Html.TextAreaFor(model => model.Content)
-                                <div id="editor"></div>
+                                @Html.LabelFor(m => m.Content, new { @class = "add-course-label" } )
+                                @Html.TextAreaFor(m => m.Content,new {@class = "form-control"})
                             </div>
                             <div class="input-block mb-0">
                                 @Html.LabelFor(m => m.Price, new { @class = "add-course-label" })

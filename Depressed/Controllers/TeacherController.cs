@@ -14,7 +14,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace Depressed.Controllers
 {
-
+    [Authorize(Roles = "Teacher")]
     public class TeacherController : Controller
     {
         // GET: Teacher
@@ -33,12 +33,6 @@ namespace Depressed.Controllers
         }
         public ActionResult Dashboard()
         {
-            return View();
-        }
-        public ActionResult RollOut()
-        {
-            ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
             return View();
         }
         [HttpGet]
@@ -67,25 +61,17 @@ namespace Depressed.Controllers
                 return RedirectToAction("Schedule");
             }
         }
-        [HttpGet]
-        public ActionResult Schedule_Fix()
-        {
-            return View();
-        }
-        /*[HttpPost]
-        public ActionResult Schedule_Fix()
-        {
-
-        }*/
-        [HttpGet]
-        public ActionResult EnterMark()
-        {
-            return View();
-        }
         // Classes
+        [HttpGet]
         public ActionResult Lophoc(string UserId, string search = "")
         {
             List<Lophoc> lh = db.Lophocs.Where(row => row.UserId == UserId).ToList();
+            /*var number = db.Lophocs.Include(x => x.ClassMembers).Where(y => y.class_id).Count();*/
+            if (!String.IsNullOrEmpty(search))
+            {
+                lh = lh.Where(s => s.class_name.Contains(search) && s.UserId == UserId).ToList();
+            }
+            ViewBag.UserId = UserId;
             return View(lh);
         }
         [HttpGet]
@@ -128,71 +114,57 @@ namespace Depressed.Controllers
         [HttpGet]
         public ActionResult Edit_Lophoc(int id)
         {
-            var lophoc = db.Lophocs
-                .Include(x => x.ClassMembers)
-                .Include(y => y.Lichhocs)
-                .FirstOrDefault(z => z.class_id == id);
-            return View(lophoc);
+            var lophoc = db.Lophocs.FirstOrDefault(l => l.class_id == id);
+            var lichhoc = db.Lichhocs.FirstOrDefault(l => l.lophoc_id == id);
+            var viewModel = new EditDetailViewModel
+            {
+                Lophoc = lophoc,
+                Lichhocs = lichhoc,
+                ClassMembers = lophoc.ClassMembers.ToList(),
+            };
+            return View(viewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit_Lophoc(int id, Lophoc lophoc, string[] deleteMemberIds)
+        public ActionResult Edit_Lophoc(int id, EditDetailViewModel viewModel, string[] deletedMembers)
         {
-            var lophocUpdate = db.Lophocs
-                .Include(l => l.Lichhocs)
-                .Include(x => x.ClassMembers)
-                .FirstOrDefault(y => y.class_id == id);
-            lophocUpdate.class_name = lophoc.class_name;
-            lophocUpdate.content = lophoc.content;
-            var existingLichhocs = lophocUpdate.Lichhocs.ToList();
-            foreach (var lichhocView in lophoc.Lichhocs)
+            var lophoc = db.Lophocs.FirstOrDefault(l => l.class_id == id);
+            var lichhoc = db.Lichhocs.FirstOrDefault(l => l.lophoc_id == id);
+            if (ModelState.IsValid)
             {
-                Lichhoc existingLichhoc;
-                if (lichhocView.id > 0)
+                lophoc.class_name = viewModel.Lophoc.class_name;
+                lophoc.content = viewModel.Lophoc.content;
+                lichhoc.Ngayhoc1 = viewModel.Lichhocs.Ngayhoc1;
+                lichhoc.Tiet_1 = viewModel.Lichhocs.Tiet_1;
+                lichhoc.Ngayhoc2 = viewModel.Lichhocs.Ngayhoc2;
+                lichhoc.Tiet_2 = viewModel.Lichhocs.Tiet_2;
+                lichhoc.Ngayhoc3 = viewModel.Lichhocs.Ngayhoc3;
+                lichhoc.Tiet_3 = viewModel.Lichhocs.Tiet_3;
+                if (deletedMembers != null)
                 {
-                    existingLichhoc = existingLichhocs.FirstOrDefault(lh => lh.id == lichhocView.id);
-                    if (existingLichhoc != null)
+                    foreach (var member in deletedMembers)
                     {
-                        existingLichhoc.Ngayhoc1 = lichhocView.Ngayhoc1;
-                        existingLichhoc.Tiet_1 = lichhocView.Tiet_1;
-                        existingLichhoc.Ngayhoc2 = lichhocView.Ngayhoc2;
-                        existingLichhoc.Tiet_2 = lichhocView.Tiet_2;
-                        existingLichhoc.Ngayhoc3 = lichhocView.Ngayhoc3;
-                        existingLichhoc.Tiet_3 = lichhocView.Tiet_3;
+                        var memberToDelete = db.ClassMembers.FirstOrDefault(x => x.UserId == member);
+                        if (memberToDelete != null)
+                        {
+                            db.ClassMembers.Remove(memberToDelete);
+                        }
                     }
-                }
-                else
-                {
-                    lichhocView.lophoc_id = lophocUpdate.class_id;
-                    db.Lichhocs.Add(lichhocView);
-                }
-            }
-            var existingMember = lophocUpdate.ClassMembers.ToList();
-            foreach (var memberView in lophoc.ClassMembers)
-            {
-                if (!existingMember.Any(cm => cm.UserId == memberView.UserId && cm.lophoc_id == lophocUpdate.class_id))
-                {
-                    ClassMember newMember = new ClassMember();
-                    newMember.UserId = memberView.UserId;
-                    lophocUpdate.ClassMembers.Add(newMember);
-                }
-            }
-            foreach (var deletedUserId in deleteMemberIds)
-            {
-                var memberToDelete = existingMember.FirstOrDefault(cm => cm.UserId == deletedUserId);
-                if (memberToDelete != null)
-                {
-                    lophocUpdate.ClassMembers.Remove(memberToDelete);
                 }
             }
             db.SaveChanges();
-            return RedirectToAction("Lophocct", new { id = lophocUpdate.class_id });
+            return RedirectToAction("LophocChitiet", new { id = lophoc.class_id });
         }
         //Khoa hoc
         [HttpGet]
         public ActionResult Khoahoc(string UserId, string search = "")
         {
             List<Khoahoc> kh = db.Khoahocs.Where(row => row.UserId == UserId).ToList();
+            if (!String.IsNullOrEmpty(search))
+            {
+                kh = kh.Where(s => s.name.Contains(search) && s.UserId == UserId).ToList();
+            }
+            ViewBag.UserId = UserId;
             return View(kh);
         }
         [HttpGet]
@@ -238,6 +210,7 @@ namespace Depressed.Controllers
         public ActionResult Edit_kh(Khoahoc kh)
         {
             Khoahoc k = db.Khoahocs.Where(row => row.kh_id == kh.kh_id).FirstOrDefault();
+            k.UserId = kh.UserId;
             k.name = kh.name;
             k.category_id = kh.category_id;
             k.Content = kh.Content;
@@ -268,13 +241,104 @@ namespace Depressed.Controllers
                 return RedirectToAction("NewCategory");
             }
         }
-        public ActionResult Blog()
+        [HttpGet]
+        public ActionResult YourPost(string UserId,string search = "")
         {
-            return View();
+            List<Post_Post> post_Posts = db.Post_Posts.Where(row => row.UserId == UserId).ToList();
+            if (!String.IsNullOrEmpty(search))
+            {
+                post_Posts = post_Posts.Where(s => s.Title.Contains(search) && s.UserId == UserId).ToList();
+            }
+            ViewBag.UserId = UserId;
+            return View(post_Posts);
         }
-        public ActionResult Blog_dt()
+        [HttpGet]
+        public ActionResult Create_Blog(string UserId)
         {
-            return View();
+            Post_Post model = new Post_Post();
+            ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser UserToPost = UserManager.FindById(UserId);
+            if (UserToPost != null)
+            {
+                model.UserId = UserToPost.Id;
+                model.DateCreated = DateTime.Now;
+                model.Status = Post_Post.PostStatus.Pending;
+            }
+            return View(model);
         }
+        [HttpPost]
+        public ActionResult Create_Blog(Post_Post model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Post_Posts.Add(model);
+                db.SaveChanges();
+                return RedirectToAction("YourPost", new { UserId = User.Identity.GetUserId() });
+            }
+            return View(model);
+        }
+        [HttpGet]
+        public ActionResult RollOut(int? classID, string date)
+        {
+            /*var lophoc = db.Lophocs.FirstOrDefault(l => l.class_id == id);
+            var lichhoc = db.Lichhocs.FirstOrDefault(l => l.lophoc_id == id);*/
+            var lophoc = db.Lophocs.ToList();
+            var members = new List<ClassMember>();
+            var lichHocs = new Lichhoc();
+            ViewBag.selectedDate = date;
+            if (classID != null)
+            {
+                lichHocs = db.Lichhocs
+               .Where(row => row.lophoc_id == classID)
+               .OrderByDescending(row => row.id)
+               .FirstOrDefault();
+                date = lichHocs.Ngayhoc1;
+            }
+            if (date != null)
+            {
+                members = db.ClassMembers.Where(row => row.lophoc_id == classID).ToList();
+            }
+            ViewBag.currentClass = classID;
+            var viewModel = new RollOutModel
+            {
+                Lophoc = lophoc,
+                Lichhoc = lichHocs,
+                ClassMembers = members,
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult RollOut(List<RollOut> rollouts)
+        {
+            try
+            {
+                // Thêm tất cả các bản ghi vào DbSet
+                foreach (var item in rollouts)
+                {
+                    db.RollOuts.Add(item);
+                }
+
+                // Lưu thay đổi vào cơ sở dữ liệu một lần
+                db.SaveChanges();
+
+                // Trả về kết quả JSON thành công
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ và hiển thị thông báo lỗi ra console
+                System.Diagnostics.Debug.WriteLine("Error Add: " + ex.ToString());
+
+                // Trả về thông báo lỗi trong trường hợp xảy ra lỗi
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult FetchData(int? classId, string selectedDate)
+        {
+            return RedirectToAction("RollOut", "Teacher", new { classID = classId, date = selectedDate });
+        }
+
     }
 }

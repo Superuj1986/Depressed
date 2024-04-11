@@ -72,111 +72,109 @@
                             </div>
                             @if (User.IsInRole("Teacher"))
                             {
-                                <ul class="main-nav">
-                                    <li class="">
-                                        @Html.ActionLink("Home", "Index", "Home")
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Instructor <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li>@Html.ActionLink("Dashboard", "Dashboard", "Teacher")</li>
-                                            <li></li>
-                                            <li class="has-submenu">
-                                                <a href="#">My classes</a>
-                                                <ul class="submenu">
-                                                    <li>@Html.ActionLink("All Classes", "Lophoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Class" })</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Setting up <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu first-submenu">
-                                            <li>@Html.ActionLink("My Courses", "Khoahoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Course" })</li>
-
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Check-in <i class="fas fa-chevron-down"></i></a>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Your working <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="blog-list.html">Hours</a></li>
-                                            <li><a href="blog-grid.html">Salary</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                            <ul class="main-nav">
+                                <li class="">
+                                    @Html.ActionLink("Home", "Index", "Home")
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Instructor <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li>@Html.ActionLink("Dashboard", "Dashboard", "Teacher")</li>
+                                        <li></li>
+                                        <li class="has-submenu">
+                                            <a href="#">My classes</a>
+                                            <ul class="submenu">
+                                                <li>@Html.ActionLink("All Classes", "Lophoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Class" })</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Setting up <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu first-submenu">
+                                        <li>@Html.ActionLink("My Courses", "Khoahoc", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Course" })</li>
+                                        <li>@Html.ActionLink("My Blogs", "YourPost", "Teacher", routeValues: new { UserId = User.Identity.GetUserId() }, htmlAttributes: new { title = "Blog" })</li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Check-in <i class="fas fa-chevron-down"></i></a>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Your working <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Hours</a></li>
+                                        <li><a href="#">Salary</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
                             }
                             else if (User.IsInRole("Student"))
                             {
-                                <ul class="main-nav">
-                                    <li class="has-submenu active">
-                                        @Html.ActionLink("Home", "Index", "Home")
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Your classes<i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="instructor-dashboard.html">All classes</a></li>
-                                            <li class="has-submenu">
-                                                <a href="instructor-dashboard.html">Class</a>
-                                                <ul class="submenu">
-                                                    <li><a href="students-list.html">IELTS</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Your Courses<i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu first-submenu">
-                                            <li class="has-submenu ">
-                                                <a href="#">Attended Courses</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Your check-in</a>
-                                    </li>
-                                </ul>
+                            <ul class="main-nav">
+                                <li class="has-submenu active">
+                                    @Html.ActionLink("Home", "Index", "Home")
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Your classes<i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li>@Html.ActionLink("All Classes", "ListClass", "Student")</li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Your Courses<i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu first-submenu">
+                                        <li class="has-submenu ">
+                                            <a href="#">Attended Courses</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Your check-in</a>
+                                </li>
+                                <li class="has-submenu">
+                                    @Html.ActionLink("Blog", "HomeBlog", "Home")
+                                </li>
+                            </ul>
                             }
                             else if (User.IsInRole("Admin"))
                             {
-                                <ul class="main-nav">
-                                    <li class="has-submenu active">
-                                        <a href="Index">Home</a>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">List <i class="fas fa-chevron-down"></i></a>
-                                        <ul class="submenu">
-                                            <li>@Html.ActionLink("Users", "List", "Admin")</li>
-                                            <li>@Html.ActionLink("Users", "RoleList", "Admin")</li>
-                                            <li class="has-submenu">
-                                                <a href="instructor-list.html">Teachers</a>
-                                                <ul class="submenu">
-                                                    <li><a href="instructor-list.html">Hours</a></li>
-                                                    <li><a href="instructor-grid.html">Salary</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                            <ul class="main-nav">
+                                <li class="has-submenu active">
+                                    <a href="Index">Home</a>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">List <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li>@Html.ActionLink("Users", "List", "Admin")</li>
+                                        <li>@Html.ActionLink("Roles", "RoleList", "Admin")</li>
+                                        <li class="has-submenu">
+                                            <a href="instructor-list.html">Teachers</a>
+                                            <ul class="submenu">
+                                                <li><a href="instructor-list.html">Hours</a></li>
+                                                <li><a href="instructor-grid.html">Salary</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>@Html.ActionLink("Pending Blogs", "Blog", "Admin")</li>
+                            </ul>
                             }
                             else
                             {
-                                <ul class="main-nav">
-                                    <li class="has-submenu active">
-                                        @Html.ActionLink("Home", "Index", "Home")
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Current Courses </a>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Curent Teachers </a>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Blog </a>
-                                    </li>
-                                </ul>
+                            <ul class="main-nav">
+                                <li class="has-submenu active">
+                                    @Html.ActionLink("Home", "Index", "Home")
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Current Courses </a>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Curent Teachers </a>
+                                </li>
+                                <li class="has-submenu">
+                                    @Html.ActionLink("Blog", "HomeBlog", "Home")
+                                </li>
+                            </ul>
                             }
                         </div>
                         @using Microsoft.AspNet.Identity
@@ -331,7 +329,7 @@
                         {
                             <ul class="nav header-navbar-rht">
                                 <li class="nav-item">
-                                    @Html.ActionLink("Sign in", "Login", "Account", new { @class = "nav-link header-sign" })
+                                    <a class="nav-link header-sign" href="~/Account/Login">Sign in</a>
                                 </li>
                                 <li class="nav-item">
                                     @Html.ActionLink("Sign up", "AddUser", "Home", new { @class = "nav-link header-login" })

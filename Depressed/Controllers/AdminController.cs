@@ -14,6 +14,7 @@ namespace Depressed.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationRoleManager _roleManager;
         public ApplicationRoleManager RoleManager
         {
@@ -128,23 +129,76 @@ namespace Depressed.Controllers
             }
             return View(model);
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult DeleteUser(string UserId)
         {
             ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ApplicationUser UserToDelete = UserManager.FindById(UserId);
+            UserList model = new UserList();
+            if (UserToDelete != null)
+            {
+                model.UserId = UserToDelete.Id;
+                model.UserName = UserToDelete.UserName;
+                model.Age = UserToDelete.Age;
+                model.Email = UserToDelete.Email;
+                model.Address = UserToDelete.Address;
+                model.Phonenumber = UserToDelete.PhoneNumber;
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult DeleteUser(UserList model)
+        {
+            ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser UserToDelete = UserManager.FindById(model.UserId);
             if (UserToDelete != null)
             {
                 IdentityResult result = UserManager.Delete(UserToDelete);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("List", "Admin");
+                    return RedirectToAction("List");
                 }
                 foreach (string error in result.Errors)
                     ModelState.AddModelError("", error);
-                return View(UserId);
+                return View(model);
             }
             return HttpNotFound();
+        }
+        public ActionResult Blog()
+        {
+            List<Post_Post> post_Posts = db.Post_Posts.ToList();
+            return View(post_Posts);
+        }
+        [HttpGet]
+        public ActionResult Blog_dt(int id)
+        {
+            Post_Post post = db.Post_Posts.Where(row => row.Id == id).FirstOrDefault();
+            List<Post_Post> post_Posts = db.Post_Posts.Where(row => row.Id != id && row.Status == Post_Post.PostStatus.Pending).ToList();
+            ViewBag.Pending = post_Posts;
+            ViewBag.Category = db.Categories.ToList();
+            return View(post);
+        }
+        [HttpPost]
+        public ActionResult Public(int id)
+        {
+            var post = db.Post_Posts.Find(id);
+            if (post != null)
+            {
+                post.Status = Post_Post.PostStatus.Approved;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Blog");
+        }
+        [HttpPost]
+        public ActionResult Deny(int id)
+        {
+            var post = db.Post_Posts.Find(id);
+            if (post != null)
+            {
+                post.Status = Post_Post.PostStatus.Denied;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Blog");
         }
     }
 }

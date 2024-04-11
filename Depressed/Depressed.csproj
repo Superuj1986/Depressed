@@ -209,6 +209,30 @@
     <Compile Include="Migrations\202403250652483_Back.Designer.cs">
       <DependentUpon>202403250652483_Back.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404040510214_Post.cs" />
+    <Compile Include="Migrations\202404040510214_Post.Designer.cs">
+      <DependentUpon>202404040510214_Post.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404040739363_PostPost.cs" />
+    <Compile Include="Migrations\202404040739363_PostPost.Designer.cs">
+      <DependentUpon>202404040739363_PostPost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404051549067_UAALO.cs" />
+    <Compile Include="Migrations\202404051549067_UAALO.Designer.cs">
+      <DependentUpon>202404051549067_UAALO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404060536486_Checking.cs" />
+    <Compile Include="Migrations\202404060536486_Checking.Designer.cs">
+      <DependentUpon>202404060536486_Checking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404060603560_Checking1.cs" />
+    <Compile Include="Migrations\202404060603560_Checking1.Designer.cs">
+      <DependentUpon>202404060603560_Checking1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404061547431_moetoiquen.cs" />
+    <Compile Include="Migrations\202404061547431_moetoiquen.Designer.cs">
+      <DependentUpon>202404061547431_moetoiquen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -689,7 +713,6 @@
     <Content Include="Scripts\assets\plugins\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Scripts\assets\plugins\fontawesome\webfonts\fa-v4compatibility.ttf" />
     <Content Include="Scripts\assets\plugins\fontawesome\webfonts\fa-v4compatibility.woff2" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\css\style.css" />
     <Content Include="Scripts\css\style.min.css" />
     <Content Include="Scripts\img\about-1.jpg" />
@@ -720,10 +743,13 @@
     <Content Include="Scripts\img\testimonial-3.jpg" />
     <Content Include="Scripts\img\testimonial-4.jpg" />
     <Content Include="Scripts\img\user.jpg" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -994,7 +1020,6 @@
     <Content Include="Views\Admin\List.cshtml" />
     <Content Include="Views\Admin\AddRole.cshtml" />
     <Content Include="Views\Admin\RoleList.cshtml" />
-    <Content Include="Views\Teacher\RollOut.cshtml" />
     <Content Include="Views\Teacher\Add_Lophoc.cshtml" />
     <Content Include="Views\Teacher\Create_Profile.cshtml" />
     <Content Include="Views\Shared\ProfileShare.cshtml" />
@@ -1014,11 +1039,25 @@
     <Content Include="Views\Account\Checkout.cshtml" />
     <Content Include="Views\Teacher\Edit_Lophoc.cshtml" />
     <Content Include="Views\Teacher\Edit_kh.cshtml" />
+    <Content Include="Views\Admin\Deleteuser.cshtml" />
+    <Content Include="Views\Teacher\Blog.cshtml" />
+    <Content Include="Views\Home\HomeBlog.cshtml" />
+    <Content Include="Views\Shared\Blog.cshtml" />
+    <Content Include="Views\Teacher\Create_Blog.cshtml" />
+    <Content Include="Views\Teacher\_ClassInfo.cshtml" />
+    <Content Include="Views\Admin\Blog.cshtml" />
+    <Content Include="Views\Teacher\YourPost.cshtml" />
+    <Content Include="Views\Admin\Blog_dt.cshtml" />
+    <Content Include="Views\Home\Blog_dt.cshtml" />
+    <Content Include="Views\Student\ListClass.cshtml" />
+    <Content Include="Views\Teacher\RollOut.cshtml" />
+    <Content Include="Views\Home\Teachers.cshtml" />
+    <Content Include="Views\Home\Courses.cshtml" />
+    <Content Include="Views\Student\ListCourses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\Student\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -1044,8 +1083,6 @@
     <Content Include="Scripts\bootstrap.esm.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202403091207143_InitialCreate.resx">
@@ -1071,6 +1108,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202403250652483_Back.resx">
       <DependentUpon>202403250652483_Back.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404040510214_Post.resx">
+      <DependentUpon>202404040510214_Post.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404040739363_PostPost.resx">
+      <DependentUpon>202404040739363_PostPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404051549067_UAALO.resx">
+      <DependentUpon>202404051549067_UAALO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404060536486_Checking.resx">
+      <DependentUpon>202404060536486_Checking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404060603560_Checking1.resx">
+      <DependentUpon>202404060603560_Checking1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404061547431_moetoiquen.resx">
+      <DependentUpon>202404061547431_moetoiquen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,67 +1,90 @@
-﻿@model Depressed.Models.Lophoc
+﻿@using Microsoft.AspNet.Identity
+@model Depressed.Models.EditDetailViewModel
 @{
     ViewBag.Title = "Edit_Lophoc";
     Layout = "~/Views/Shared/Separated.cshtml";
 }
-<section class="page-content course-sec">
+<section class="page-content course-sec w-100">
     <div class="container">
-        @using (Html.BeginForm("Edit_Lophoc", "Teacher", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            @Html.Hidden("class_id", @Model.class_id)
-            <div class="">
-                <h3>Class Information</h3>
-                <div>
-                    @Html.LabelFor(m => m.class_name, new { @class = "form-control-label" })
-                    @Html.EditorFor(m => m.class_name, new { @class = "form-control" })
-                </div>
-                <div>
-                    @Html.LabelFor(m => m.content, new { @class = "form-control-label" })
-                    @Html.EditorFor(m => m.content, new { @class = "form-control" })
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="add-course-header">
+                    <h2>Edit your Class</h2>
+                    <div class="add-course-btns">
+                        <ul class="nav">
+                            <li>
+                                <a href="~/Teacher/Lophoc?UserId=@User.Identity.GetUserId()" class="btn btn-black">Back to Class</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div>
-                <h3>Class Schedule</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ngày học 1</th>
-                            <th>Tiết 1</th>
-                            <th>Ngày học 2</th>
-                            <th>Tiết 2</th>
-                            <th>Ngày học 3</th>
-                            <th>Tiết 3</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var lichhoc in Model.Lichhocs)
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="widget-set">
+                        @using (Html.BeginForm("Edit_Lophoc", "Teacher", FormMethod.Post))
                         {
-                            @Html.Hidden("id",lichhoc.id)
-                            <tr>
-                                <td>@Html.EditorFor(m => lichhoc.Ngayhoc1, new { htmlAttributes = new { @class = "form-control",type = "date" } })</td>
-                                <td>@Html.EditorFor(m => lichhoc.Tiet_1, new { htmlAttributes = new { @class = "form-control" } })</td>
-                                <td>@Html.EditorFor(m => lichhoc.Ngayhoc2, new { htmlAttributes = new { @class = "form-control",type = "date" } })</td>
-                                <td>@Html.EditorFor(m => lichhoc.Tiet_2, new { htmlAttributes = new { @class = "form-control" } })</td>
-                                <td>@Html.EditorFor(m => lichhoc.Ngayhoc3, new { htmlAttributes = new { @class = "form-control",type = "date" } })</td>
-                                <td>@Html.EditorFor(m => lichhoc.Tiet_3, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            </tr>
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("class_id", Model.Lophoc.class_id)
+                            <div class="input-block">
+                                @Html.LabelFor(m => m.Lophoc.class_name, new { @class = "add-course-label" })
+                                @Html.TextBoxFor(m => m.Lophoc.class_name, new { @class = "form-control" })
+                            </div>
+                            <div class="input-block">
+                                @Html.LabelFor(m => m.Lophoc.content, new { @class = "add-course-label" })
+                                @Html.TextBoxFor(m => m.Lophoc.content, new { @class = "form-control" })
+                            </div>
+                            <div class="row">
+                                <div class="input-block">
+                                    @Html.LabelFor(m => m.Lichhocs.Ngayhoc1, htmlAttributes: new { @class = "form-control-label" })
+                                    @Html.TextBoxFor(m => m.Lichhocs.Ngayhoc1, new { @class = "form-control" })
+                                </div>
+                                <div class="input-block">
+                                    @Html.LabelFor(m => m.Lichhocs.Tiet_1, htmlAttributes: new { @class = "form-control-label" })
+                                    @Html.TextBoxFor(m => m.Lichhocs.Tiet_1, new { @class = "form-control" })
+                                </div>
+                                <div class="input-block">
+                                    @Html.LabelFor(m => m.Lichhocs.Ngayhoc2, htmlAttributes: new { @class = "form-control-label" })
+                                    @Html.TextBoxFor(m => m.Lichhocs.Ngayhoc2, new { @class = "form-control"})
+                                </div>
+                                <div class="input-block">
+                                    @Html.LabelFor(m => m.Lichhocs.Tiet_2, htmlAttributes: new { @class = "form-control-label" })
+                                    @Html.TextBoxFor(m => m.Lichhocs.Tiet_2, new { @class = "form-control" })
+                                </div>
+                                <div class="input-block">
+                                    @Html.LabelFor(m => m.Lichhocs.Ngayhoc3, htmlAttributes: new { @class = "form-control-label" })
+                                    @Html.TextBoxFor(m => m.Lichhocs.Ngayhoc3, new { @class = "form-control" })
+                                </div>
+                                <div class="input-block">
+                                    @Html.LabelFor(m => m.Lichhocs.Tiet_3, htmlAttributes: new { @class = "form-control-label" })
+                                    @Html.TextBoxFor(m => m.Lichhocs.Tiet_3, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div>
+                                <table class="table border">
+                                    <tr>
+                                        <th>Students</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                    @foreach (var member in Model.ClassMembers)
+                                    {
+                                        <tr>
+                                            <th>@member.ApplicationUser.Fullname</th>
+                                            <th><input type="checkbox" name="deletedMembers" value="@member.UserId" /></th>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                            <div class="d-grid">
+                                <input type="submit" value="Save" class="btn btn-primary btn-start" />
+                            </div>
                         }
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <h3>Members List</h3>
-                <select name="DeleteMemberIds" class="form-control">
-                    @foreach (var member in Model.ClassMembers)
-                    {
-                        <option value="@member.UserId">@member.ApplicationUser.UserName</option>
-                    }
-                </select>
-            </div>
-            <div>
-                <input type="submit" value="Update" />
-            </div>
-        }
+        </div>
     </div>
 </section>
 

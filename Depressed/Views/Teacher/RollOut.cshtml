@@ -1,36 +1,43 @@
-﻿@{
+﻿@model Depressed.Models.RollOutModel
+@{
     ViewBag.Title = "RollOut";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
+
 <body>
     <!--Attendance Form Start-->
     <div class="container mt-5">
         <h2 class="mb-4">Attendance</h2>
-        <form>
+        <form id="myForm" action="@Url.Action("FetchData", "Teacher")" method="post">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <!-- <label for="classSelect">Class</label> -->
                     <h4>Class</h4>
-                    <select id="classSelect" class="form-control">
-                        @foreach (var cm in ViewBag.CM)
+
+                    <select id="classSelect" name="classId" class="form-control" onchange="submitForm()">
+                        <option>-- Choose class --</option>
+                        @foreach (var lophoc in Model.Lophoc)
                         {
-                            
+                            <option value="@lophoc.class_id" @(ViewBag.currentClass == lophoc.class_id ? "selected" : "")>
+                                @lophoc.class_name
+                            </option>
                         }
                     </select>
                 </div>
                 <div class="form-group col-md-4">
                     <!-- <label for="datePicker">Date</label> -->
                     <h4>Date</h4>
-                    <div class="input-group date" id="datePicker" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#datePicker" />
-                        <div class="input-group-append" data-target="#datePicker" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label>&nbsp;</label>
-                    <button type="button" class="btn btn-primary form-control">Find Schedule</button>
+                    <select id="dateSelect" class="form-control" name="selectedDate" onchange="submitForm()">
+                        @if (Model.Lichhoc != null)
+                        {
+                            <option value="@Model.Lichhoc.Ngayhoc1">@Model.Lichhoc.Ngayhoc1</option>
+                            <option value="@Model.Lichhoc.Ngayhoc2">@Model.Lichhoc.Ngayhoc2</option>
+                            <option value="@Model.Lichhoc.Ngayhoc3">@Model.Lichhoc.Ngayhoc3</option>
+                        }
+
+                        <option value="@ViewBag.selectedDate" @(ViewBag.selectedDate != null ? "selected" : "")>@ViewBag.selectedDate</option>
+
+                    </select>
                 </div>
             </div>
         </form>
@@ -43,51 +50,125 @@
                 <h4>Student List</h4>
             </div>
             <div>
-                <button type="button" id="saveAttendanceBtn" class="btn btn-success">Save</button>
+                <button type="button" onclick="saveRollout()" id="saveAttendanceBtn" class="btn btn-success">Save</button>
             </div>
         </div>
         <div class="table-responsive mt-4">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Unexcused</th>
-                        <th>Excused</th>
-                        <th>Total Absences</th>
-                        <th>% Absent</th>
+                        <th style="text-align: center;">Name</th>
+                        <th style="text-align: center;">Unexcused</th>
+                        <th style="text-align: center;">Excused</th>
+                        <th style="text-align: center;">Total Absences</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>123-456-7890</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="checkbox"></td>
-                        <td>0</td>
-                        <td>0%</td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>123-456-7890</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="checkbox"></td>
-                        <td>0</td>
-                        <td>0%</td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>123-456-7890</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="checkbox"></td>
-                        <td>0</td>
-                        <td>0%</td>
-                    </tr>
-                    <!-- Add more rows as needed -->
-                </tbody>
+
+                @foreach (var classmember in Model.ClassMembers)
+                {
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;">@classmember.ApplicationUser.UserName</td>
+
+                            <td style="text-align: center;">
+                                <input data-id="@classmember.UserId" type="checkbox" class="unexcused-checkbox" data-status="0">
+                            </td>
+                            <td style="text-align: center;">
+                                <input data-id="@classmember.UserId" type="checkbox" class="excused-checkbox" data-status="1">
+                            </td>
+                            <td style="text-align: center;">0</td>
+                        </tr>
+                    </tbody>
+
+                }
+
             </table>
         </div>
     </div>
     <!--Attendance Form End-->
 </body>
 
+<script>
+    function submitForm() {
+
+        document.getElementById("myForm").submit();
+    }
+    var selectedExcused = [];
+    var selectedUnexcused = [];
+
+    var rollouts = [];
+
+    function checkExcuted() {
+        // Lắng nghe sự kiện click trên các checkbox
+        document.querySelectorAll('.excused-checkbox, .unexcused-checkbox').forEach(function (checkbox) {
+
+            var id = checkbox.getAttribute('data-id');
+            var status = parseInt(checkbox.getAttribute('data-status'));
+
+
+
+            // Tạo object mới và thêm vào mảng rollouts nếu checkbox được chọn
+            if (checkbox.checked) {
+
+                var rollout = {
+                    lophoc_id: document.getElementById('classSelect').value,
+                    date: document.getElementById('dateSelect').value,
+                    excuted: status,
+                    UserId: id,
+                    Lec_Content: document.getElementById('lectureContent').value,
+                    lh_id: 1,
+                    total_absent: 1
+                };
+                rollouts.push(rollout);
+            }
+        });
+
+    }
+
+
+
+    //call api them roll out
+    function saveRollout() {
+        if (document.getElementById('lectureContent').value == '') {
+            alert("Please add your Lecture Note");
+            return;
+        }
+        checkExcuted();
+        $.ajax({
+            url: '/Teacher/RollOut',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ rollouts: rollouts }),
+            success: function (response) {
+                if (response.success) {
+                    // Thực hiện các thao tác thành công (nếu cần)
+                    alert('Data sent successfully');
+                } else {
+                    // Xử lý khi có lỗi từ server
+                    alert('Error occurred:', response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi (nếu có)
+                console.error('Error occurred:', error);
+            }
+        });
+    }
+    //Cần thêm hiển thị checkbox
+
+
+
+    // Lắng nghe sự kiện click trên các checkbox
+    document.querySelectorAll('.unexcused-checkbox, .excused-checkbox').forEach(function (checkbox) {
+        checkbox.addEventListener('click', function () {
+            // Lấy danh sách các checkbox trong cùng một hàng
+            var checkboxesInRow = this.closest('tr').querySelectorAll('input[type="checkbox"]');
+            // Lặp qua danh sách và huỷ chọn các checkbox khác nếu checkbox hiện tại được chọn
+            checkboxesInRow.forEach(function (cb) {
+                if (cb !== checkbox && cb.checked) {
+                    cb.checked = false;
+                }
+            });
+        });
+    });
+</script>

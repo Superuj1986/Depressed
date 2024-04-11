@@ -17,6 +17,7 @@ namespace Depressed.Models
         public string Address { get; set; }
         public DateTime? BirtDate { get; set; }
         public byte[] Image { get; set; }
+        public string ShortDesc {  get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -31,10 +32,12 @@ namespace Depressed.Models
         public DbSet<Khoahoc> Khoahocs { get; set; }
         public DbSet<Lophoc> Lophocs { get; set; }
         public DbSet<RollOut> RollOuts { get; set; }
-        public DbSet<Thongbao> Thongbaos { get; set; }
         public DbSet<ClassMember> ClassMembers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Lichhoc> Lichhocs { get; set; }
+        public DbSet<Post_Post> Post_Posts { get; set; }
+        public DbSet<Main_Comment> Main_Comments { get; set; }
+        public DbSet<Sub_Comment> Sub_Comments { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

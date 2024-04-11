@@ -1,4 +1,5 @@
-﻿@model Depressed.Models.Lophoc
+﻿@using Microsoft.AspNet.Identity
+@model Depressed.Models.Lophoc
 @{
     ViewBag.Title = "Thêm lớp học mới";
     Layout = "~/Views/Shared/Separated.cshtml";
@@ -9,37 +10,53 @@
         <div class="row align-items-center">
             <div class="col-md-12">
                 <div class="add-course-header">
-                    <h2>Add New Class</h2>
+                    <h2>Add your Class</h2>
+                    <div class="add-course-btns">
+                        <ul class="nav">
+                            <li>
+                                <a href="~/Teacher/Lophoc?UserId=@User.Identity.GetUserId()" class="btn btn-black">Back to Class</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            @using (Html.BeginForm("Add_Lophoc", "Teacher", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                <div class="col-md-12">
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
-                    @Html.Hidden("UserId", @Model.UserId)
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.class_name, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.class_name, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    
-                    @*<div class="form-group">
-            @Html.LabelFor(m => m.name, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
-            </div>
-        </div>*@
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" class="btn btn-default" value="Add" />
-                        </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="widget-set">
+                        @using (Html.BeginForm("Add_Lophoc", "Teacher", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            @Html.Hidden("UserId", @Model.UserId)
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.class_name, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.class_name, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.content, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.content, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            @*<div class="form-group">
+                                    @Html.LabelFor(m => m.name, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+                                    </div>
+                                </div>*@
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" class="btn btn-primary btn-start" value="Add" />
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
-            }
+            </div>
         </div>
     </div>
 </section>

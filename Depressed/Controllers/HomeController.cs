@@ -43,7 +43,58 @@ namespace Depressed.Controllers
         //User areas
         public ActionResult Index()
         {
+            ViewBag.Course = db.Khoahocs.ToList();
+            ViewBag.Category = db.Categories.ToList();
+            ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationRoleManager RoleManager = HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            var teachers = (from user in UserManager.Users
+                            from userRole in user.Roles
+                            join role in RoleManager.Roles on userRole.RoleId equals role.Id
+                            where role.Name == "Teacher"
+                            select new UserList()
+                            {
+                                UserId = user.Id,
+                                UserName = user.UserName,
+                                Email = user.Email,
+                                Fullname = user.Fullname,
+                                Phonenumber = user.PhoneNumber,
+                                Age = user.Age,
+                                Address = user.Address,
+                                ShortDesc = user.ShortDesc,
+                                RoleName = role.Name
+                            }).ToList();
+            ViewBag.Teacher = teachers;
+            ViewBag.Post = db.Post_Posts.Where(row => row.Status == Post_Post.PostStatus.Approved).ToList();
+            ViewBag.Class = db.Lophocs.ToList();
             return View();
+        }
+        public ActionResult Courses()
+        {
+            List<Khoahoc> kh = db.Khoahocs.ToList();
+            return View(kh);
+        }
+        public ActionResult Teachers()
+        {
+            ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationRoleManager RoleManager = HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            var teachers = (from user in UserManager.Users
+                            from userRole in user.Roles
+                            join role in RoleManager.Roles on userRole.RoleId equals role.Id
+                            where role.Name == "Teacher"
+                            select new UserList()
+                            {
+                                UserId = user.Id,
+                                UserName = user.UserName,
+                                Email = user.Email,
+                                Fullname = user.Fullname,
+                                Phonenumber = user.PhoneNumber,
+                                Age = user.Age,
+                                Address = user.Address,
+                                ShortDesc = user.ShortDesc,
+                                RoleName = role.Name
+                            }).ToList();
+            ViewBag.Class = db.Lophocs.ToList();
+            return View(teachers);
         }
         [AllowAnonymous]
         [HttpGet]
@@ -52,7 +103,7 @@ namespace Depressed.Controllers
             ApplicationRoleManager RoleManager = HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             var roles = RoleManager.Roles
                 //.Where(x=>!x.Name.Equals("Admin"))
-                .Select(x => new RoleViewDto() {RoleId=x.Id,Name=x.Name})
+                .Select(x => new RoleViewDto() { RoleId = x.Id, Name = x.Name })
                 .ToList();
 
             ViewBag.Roles = roles;
@@ -68,7 +119,7 @@ namespace Depressed.Controllers
                 .ToList();
 
             ViewBag.Roles = roles;
-            
+
             if (ModelState.IsValid)
             {
                 var selectedRole = (await RoleManager.FindByIdAsync(model.RoleId)).Name;
@@ -80,7 +131,7 @@ namespace Depressed.Controllers
                 var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
 
-                var result = await UserManager.CreateAsync(user,model.Password);
+                var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await UserManager.AddToRoleAsync(user.Id, selectedRole);
@@ -99,7 +150,7 @@ namespace Depressed.Controllers
             EditUserViewModel model = new EditUserViewModel();
             ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ApplicationUser UserToEdit = UserManager.FindById(UserId);
-            if ( UserToEdit != null)
+            if (UserToEdit != null)
             {
                 model.UserId = UserToEdit.Id;
                 model.UserName = UserToEdit.UserName;
@@ -109,21 +160,13 @@ namespace Depressed.Controllers
                 model.Main_subject = UserToEdit.Main_subject;
                 model.address = UserToEdit.Address;
                 model.Phone_number = UserToEdit.PhoneNumber;
+                model.ShortDesc = UserToEdit.ShortDesc;
             }
             return View(model);
         }
         [HttpPost]
         public ActionResult UpdateUser(EditUserViewModel model/*, HttpPostedFileBase postedFile*/)
         {
-            /*if ( postedFile != null)
-            {
-                string path = Server.MapPath("~/Uploads/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
-            }*/
             if (ModelState.IsValid)
             {
                 ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -142,10 +185,12 @@ namespace Depressed.Controllers
                     UserToEdit.Address = model.address;
                 if (UserToEdit.PhoneNumber != model.Phone_number)
                     UserToEdit.PhoneNumber = model.Phone_number;
+                if (UserToEdit.ShortDesc != model.ShortDesc)
+                    UserToEdit.ShortDesc = model.ShortDesc;
                 IdentityResult result = UserManager.Update(UserToEdit);
-                if ( result.Succeeded)
+                if (result.Succeeded)
                 {
-                    return RedirectToAction("UpdateUser", "Home",new { UserId = User.Identity.GetUserId()});
+                    return RedirectToAction("UpdateUser", "Home", new { UserId = User.Identity.GetUserId() });
                 }
                 foreach (string error in result.Errors)
                     ModelState.AddModelError("", error);
@@ -158,7 +203,7 @@ namespace Depressed.Controllers
             ChangeEmail model = new ChangeEmail();
             ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ApplicationUser UserToEdit = UserManager.FindById(UserId);
-            if ( UserToEdit != null )
+            if (UserToEdit != null)
             {
                 model.UserId = UserToEdit.Id;
                 model.Email = UserToEdit.Email;
@@ -250,7 +295,7 @@ namespace Depressed.Controllers
         {
             return View();
         }
-        
+
         //Role areas
         [HttpPost]
         public ActionResult AssignUserToRole(string userId, string roleName)
@@ -266,6 +311,77 @@ namespace Depressed.Controllers
                 ModelState.AddModelError("", error);
             }
             return View();
+        }
+        public ActionResult HomeBlog()
+        {
+            List<Post_Post> post_Posts = db.Post_Posts.Where(row => row.Status == Post_Post.PostStatus.Approved).ToList();
+            ViewBag.post = post_Posts;
+            ViewBag.Category = db.Categories.ToList();
+            return View(post_Posts);
+        }
+        [Authorize]
+        [HttpGet]
+        public ActionResult Blog_dt(int id)
+        {
+            var posts = db.Post_Posts.FirstOrDefault(row => row.Id == id);
+            var main_comment = db.Main_Comments.Where(x => x.post_id == id).ToList();
+            var mainCommentIds = main_comment.Select(z => z.Id).ToList();
+            var sub_comment = db.Sub_Comments
+            .Where(y => mainCommentIds.Contains(y.main_id))
+            .ToList();
+            List<Post_Post> post_Posts = db.Post_Posts.Where(row => row.Id != id && row.Status == Post_Post.PostStatus.Approved).ToList();
+
+            var viewModel = new TrueBlog
+            {
+                Post_s = posts,
+                main_Comments = main_comment,
+                sub_Comments = sub_comment,
+            };
+            ViewBag.Recent = post_Posts;
+            ViewBag.Category = db.Categories.ToList();
+            return View(viewModel);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Comment(TrueBlog model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+                Main_Comment mainComment = new Main_Comment
+                {
+                    post_id = model.Post_s.Id,
+                    UserId = userId,
+                    comments = model.NewComment,
+                    DateComment = DateTime.Now
+                };
+                db.Main_Comments.Add(mainComment);
+                db.SaveChanges();
+                return RedirectToAction("Blog_dt", new { id = model.Post_s.Id });
+            }
+            return View(model);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reply(TrueBlog model,int main_id,int Id)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+                Sub_Comment subComment = new Sub_Comment
+                {
+                    main_id = main_id,
+                    UserId = userId,
+                    comments = model.NewComment,
+                    DateComment = DateTime.Now
+                };
+                db.Sub_Comments.Add(subComment);
+                db.SaveChanges();
+                return RedirectToAction("Blog_dt", new { id = Id });
+            }
+            return View(model);
         }
 
     }

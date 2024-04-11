@@ -1,0 +1,18 @@
+﻿@model Depressed.Models.RollOutDetailViewModel
+
+<h1>Schedule</h1>
+<ul>
+    @foreach (var lichhoc in Model.Lichhocs)
+    {
+        <li>@lichhoc.Ngayhoc1.Value.ToString("dd/MM/yyyy") - @lichhoc.Tiet_1</li>
+        <li>@lichhoc.Ngayhoc2.Value.ToString("dd/MM/yyyy") - @lichhoc.Tiet_2</li>
+        <li>@lichhoc.Ngayhoc3.Value.ToString("dd/MM/yyyy") - @lichhoc.Tiet_3</li>
+    }
+</ul>
+<h1>ClassMember</h1>
+<ul>
+    @foreach (var classMember in Model.ClassMembers)
+    {
+        <li>@classMember.ApplicationUser.Fullname</li>
+    }
+</ul>
